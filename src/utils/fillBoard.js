@@ -29,7 +29,7 @@ for (let i = 0; i < 10; i++) {
 
 let mines = [];
 
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 1; i++) {
   let newMine = checkDuplicate(mines);
   mines.push(newMine);
 }
