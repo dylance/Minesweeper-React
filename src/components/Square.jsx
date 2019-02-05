@@ -1,10 +1,23 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Square = props => {
-  if (props.value === 'B') {
-    return <button className="square" style={{color: 'red'}}>{props.value}</button>;
+class Square extends Component {
+  state = {
+    hidden: true
   }
-  return <button className="square">{props.value}</button>;
+
+  clicked = () => {
+    this.setState({hidden: false})
+  }
+
+  render() {
+
+    if (this.state.hidden) {
+      return <button onClick={this.clicked} className="square" style={{background: '#666'}}></button>;
+    }
+    return (
+      <button className="square">{this.props.value}</button>
+    )
+  }
 };
 
 export default Square;
