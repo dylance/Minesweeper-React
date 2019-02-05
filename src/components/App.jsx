@@ -38,9 +38,8 @@ class App extends Component {
 }
 
 function revealBlanks(grid, i, j) {
-
-  if (grid[i][j].value !== '') {
-    return
+  if (grid[i][j].value !== "") {
+    return;
   }
   grid[i][j].checked = true;
   // general case
@@ -139,6 +138,35 @@ function revealBlanks(grid, i, j) {
       }
     });
   }
+
+  /// Corner Cases
+  if (i === 0 && j == 0) {
+    const perimeter = [[i, j + 1], [i + 1, j], [i + 1, j + 1]];
+    checkNeighbors(perimeter, grid)
+  }
+  if (i === 0 && j == 9) {
+    const perimeter = [[i, j - 1], [i + 1, j], [i + 1, j - 1]];
+    checkNeighbors(perimeter, grid)
+  }
+  if (i === 9 && j == 0) {
+    const perimeter = [[i, j + 1], [i - 1, j], [i - 1, j + 1]];
+    checkNeighbors(perimeter, grid)
+  }
+  if (i === 9 && j == 9) {
+    const perimeter = [[i, j - 1], [i - 1, j], [i - 1, j - 1]];
+    checkNeighbors(perimeter, grid)
+  }
+}
+
+function checkNeighbors(perimeter, grid) {
+  perimeter.forEach(square => {
+    if (grid[square[0]][square[1]].value === "") {
+      grid[square[0]][square[1]].display = "visible";
+      if (!grid[square[0]][square[1]].checked) {
+        revealBlanks(grid, square[0], square[1]);
+      }
+    }
+  });
 }
 
 export default App;
