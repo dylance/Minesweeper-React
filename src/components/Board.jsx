@@ -3,11 +3,17 @@ import React, { Component } from "react";
 import Square from "./Square";
 
 class Board extends Component {
-  renderSquare(value) {
+  renderSquare(value, i, j) {
     //x = x.toString();
     //y = y.toString();
     //let key = x+y
-    return <Square value={value} key={Math.random()}/>;
+    return (
+      <Square
+        value={value}
+        key={Math.random()}
+        clicked={() => this.props.clicked(i, j)}
+      />
+    );
   }
 
   createBoard = () => {
@@ -15,7 +21,7 @@ class Board extends Component {
     for (let i = 0, count = 0; i < 10; i++) {
       let squares = [];
       for (let j = 0; j < 10; j++) {
-        squares.push(this.renderSquare(this.props.grid[i][j]));
+        squares.push(this.renderSquare(this.props.grid[i][j], i, j));
         count++;
       }
       board.push(

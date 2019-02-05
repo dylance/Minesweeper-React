@@ -11,11 +11,11 @@ class Square extends Component {
 
   render() {
 
-    if (this.state.hidden) {
-      return <button onClick={this.clicked} className="square" style={{background: '#666'}}></button>;
+    if (this.props.value.display === 'hidden') {
+      return <button onClick={this.props.clicked} className="square" style={{background: '#666'}}></button>;
     }
     return (
-      <button className="square">{this.props.value}</button>
+      <button className="square">{this.props.value.value}</button>
     )
   }
 };
