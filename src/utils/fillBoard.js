@@ -75,7 +75,6 @@ for (let i = 0; i < 10; i++) {
         return row.slice(0, 2);
       });
       perimeter = [].concat.apply([], perimeter);
-      console.log("The special perimeter is:", perimeter);
     }
     // last column
     if (j === 9 && !perimeter) {
@@ -84,7 +83,6 @@ for (let i = 0; i < 10; i++) {
         return row.slice(8, 10);
       });
       perimeter = [].concat.apply([], perimeter);
-      console.log("The special perimeter is:", perimeter);
     }
 
     // top row
@@ -94,7 +92,6 @@ for (let i = 0; i < 10; i++) {
         return row.slice(j - 1, j + 2);
       });
       perimeter = [].concat.apply([], perimeter);
-      console.log("The special perimeter is:", perimeter);
     }
     // bottom row
     if (i === 9 && !perimeter) {
@@ -103,7 +100,6 @@ for (let i = 0; i < 10; i++) {
         return row.slice(j - 1, j + 2);
       });
       perimeter = [].concat.apply([], perimeter);
-      console.log("The special perimeter is:", perimeter);
     }
 
     // General Case
@@ -122,8 +118,8 @@ for (let i = 0; i < 10; i++) {
       }
     });
 
-    grid[i][j] = minesNearby ? minesNearby.toString() : '';
+    grid[i][j] = minesNearby ? minesNearby.toString() : "";
   }
 }
 
-export default grid
+export default grid;
