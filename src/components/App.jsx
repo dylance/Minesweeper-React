@@ -5,11 +5,17 @@ import grid from "../utils/fillBoard";
 
 class App extends Component {
   state = {
-    grid: []
+    grid: [],
+    status: 'alive'
   };
 
   clicked = (i, j) => {
     let grid = this.state.grid.slice();
+
+    if (grid[i][j].value === 'B') {
+      this.setState({status: 'dead'})
+      return
+    }
 
     revealBlanks(grid, i, j);
     grid[i][j].display = "visible";
@@ -29,9 +35,13 @@ class App extends Component {
   }
 
   render() {
+
+
+
     return (
       <div>
-        <Board grid={this.state.grid} clicked={this.clicked} />
+        <h1>{this.state.status === 'alive' ? 'MineSweeper' : 'GAME OVER!!!'}</h1>
+        <Board grid={this.state.grid} clicked={this.clicked} status={this.state.status} />
       </div>
     );
   }

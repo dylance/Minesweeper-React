@@ -12,6 +12,7 @@ class Board extends Component {
         value={value}
         key={Math.random()}
         clicked={() => this.props.clicked(i, j)}
+        status={this.props.status}
       />
     );
   }
