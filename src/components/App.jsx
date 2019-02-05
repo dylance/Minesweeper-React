@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import Board from './Board'
+
 class App extends Component {
   state = {
     grid: []
@@ -27,7 +29,7 @@ class App extends Component {
       return duplicate ? checkDuplicate(mines) : newMine;
     };
 
-    let row = Array(10).fill("0");
+    let row = Array(10).fill(null);
 
     let grid = [];
 
@@ -130,14 +132,18 @@ class App extends Component {
           }
         });
 
-        grid[i][j] = minesNearby.toString();
+        grid[i][j] = minesNearby ? minesNearby.toString() : '';
       }
     }
     this.setState({grid})
   }
   render() {
     console.log("The grid is: ", this.state.grid)
-    return <div>This is my div</div>;
+    return (
+      <div>
+        <Board grid={this.state.grid} />
+      </div>
+    )
   }
 }
 
