@@ -26,7 +26,7 @@ class App extends Component {
 
   setFlag = (i,j) => {
     let grid = this.state.grid.slice();
-    grid[i][j].display = "flag";
+    grid[i][j].display = grid[i][j].display === 'hidden' ? "flag" : 'hidden';
     this.setState({
       grid
     });

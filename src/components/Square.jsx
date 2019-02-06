@@ -35,7 +35,13 @@ class Square extends Component {
 
     if (this.props.value.display === "flag") {
       return (
-        <button className="square">
+        <button
+          className="square"
+          onContextMenu={e => {
+            e.preventDefault();
+            this.props.setFlag();
+          }}
+        >
           <FaFlagCheckered />
         </button>
       );
