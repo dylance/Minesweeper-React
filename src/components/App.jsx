@@ -181,19 +181,19 @@ function revealBlanks(grid, i, j) {
   }
 
   /// Corner Cases
-  if (i === 0 && j == 0) {
+  if (i === 0 && j === 0) {
     const perimeter = [[i, j + 1], [i + 1, j], [i + 1, j + 1]];
     checkNeighbors(perimeter, grid);
   }
-  if (i === 0 && j == 9) {
+  if (i === 0 && j === 9) {
     const perimeter = [[i, j - 1], [i + 1, j], [i + 1, j - 1]];
     checkNeighbors(perimeter, grid);
   }
-  if (i === 9 && j == 0) {
+  if (i === 9 && j === 0) {
     const perimeter = [[i, j + 1], [i - 1, j], [i - 1, j + 1]];
     checkNeighbors(perimeter, grid);
   }
-  if (i === 9 && j == 9) {
+  if (i === 9 && j === 9) {
     const perimeter = [[i, j - 1], [i - 1, j], [i - 1, j - 1]];
     checkNeighbors(perimeter, grid);
   }
