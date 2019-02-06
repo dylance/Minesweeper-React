@@ -25,23 +25,17 @@ class App extends Component {
   };
 
   checkWin = grid => {
-    let win = true;
-    if (grid.length === 0) {
-      return;
-    }
     for (let i = 0; i < grid.length; i++) {
       for (let j = 0; j < grid[i].length; j++) {
         if (grid[i][j].value !== "B" && grid[i][j].display === "hidden") {
-          console.log("This was hit");
-          win = false;
+          return;
         }
       }
     }
-    if (win === true) {
-      this.setState({
-        status: "won"
-      });
-    }
+
+    this.setState({
+      status: "won"
+    });
   };
 
   componentDidUpdate() {
