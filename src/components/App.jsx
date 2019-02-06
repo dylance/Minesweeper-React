@@ -24,6 +24,16 @@ class App extends Component {
     });
   };
 
+  setFlag = (i,j) => {
+    let grid = this.state.grid.slice();
+    grid[i][j].display = "flag";
+    this.setState({
+      grid
+    });
+
+
+  }
+
   checkWin = grid => {
     for (let i = 0; i < grid.length; i++) {
       for (let j = 0; j < grid[i].length; j++) {
@@ -61,6 +71,7 @@ class App extends Component {
           grid={this.state.grid}
           clicked={this.clicked}
           status={this.state.status}
+          setFlag={this.setFlag}
         />
       </div>
     );

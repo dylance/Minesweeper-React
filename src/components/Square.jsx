@@ -1,20 +1,13 @@
 import React, { Component } from "react";
+import { FaBomb, FaFlagCheckered } from "react-icons/fa";
 
 class Square extends Component {
-  state = {
-    hidden: true
-  };
-
-  clicked = () => {
-    this.setState({ hidden: false });
-  };
-
   render() {
     if (this.props.status === "dead" && this.props.value.value === "B") {
       console.log("howdy partner");
       return (
         <button className="square" style={{ background: "red" }}>
-          {this.props.value.value}
+          <FaBomb />
         </button>
       );
     }
@@ -23,15 +16,28 @@ class Square extends Component {
       return (
         <button
           onClick={e => {
-            e.preventDefault()
+            e.preventDefault();
             console.log("theh clicked button is:", e.button);
             this.props.clicked();
           }}
-          onMouseDown={(e) => {console.log(e.button)}}
+          onMouseDown={e => {
+            console.log(e.button);
+          }}
           className="square"
           style={{ background: "#666" }}
-          onContextMenu={(e) => {e.preventDefault()}}
+          onContextMenu={e => {
+            e.preventDefault();
+            this.props.setFlag();
+          }}
         />
+      );
+    }
+
+    if (this.props.value.display === "flag") {
+      return (
+        <button className="square">
+          <FaFlagCheckered />
+        </button>
       );
     }
 
