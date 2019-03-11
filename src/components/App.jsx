@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Board from "./Board";
+import PlayAgain from "./PlayAgain";
 import grid from "../utils/fillBoard";
 
 class App extends Component {
@@ -48,6 +49,10 @@ class App extends Component {
     });
   };
 
+  startAgain = () => {
+    return <div>Hello</div>
+  }
+
   componentDidUpdate() {
     if (this.state.status !== "won") {
       this.checkWin(this.state.grid);
@@ -73,6 +78,7 @@ class App extends Component {
           status={this.state.status}
           setFlag={this.setFlag}
         />
+      <PlayAgain aliveOrNot={this.state.status} />
       </div>
     );
   }
