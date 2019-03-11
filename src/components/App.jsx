@@ -49,10 +49,6 @@ class App extends Component {
     });
   };
 
-  startAgain = () => {
-    return <div>Hello</div>
-  }
-
   componentDidUpdate() {
     if (this.state.status !== "won") {
       this.checkWin(this.state.grid);
