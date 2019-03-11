@@ -4,6 +4,7 @@
 
 I am making a minesweeper game in react without looking at any example code related to the logic for the game.
 
+Contributors: Paul Borawski - @iamnawa
 
 To do:
 
