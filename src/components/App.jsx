@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
-import grid from "../utils/createGrid";
+import createGrid from "../utils/createGrid";
 
 class App extends Component {
   state = {
@@ -57,7 +57,7 @@ class App extends Component {
 
   componentDidMount() {
 
-    let newGrid = grid.map(row => {
+    let newGrid = createGrid(10,10,3).map(row => {
       return row.map(square => {
         return { value: square, display: "hidden" };
       });
