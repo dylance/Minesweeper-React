@@ -12,7 +12,7 @@ const createGrid = (width, height, bombs) => {
 
   // create array of mine locations
   for (let i = 0; i < bombs; i++) {
-    let newMine = checkDuplicate(mines);
+    let newMine = checkDuplicate(mines, height, width);
     mines.push(newMine);
   }
 
