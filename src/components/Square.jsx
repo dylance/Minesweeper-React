@@ -4,7 +4,6 @@ import { FaBomb, FaFlagCheckered } from "react-icons/fa";
 class Square extends Component {
   render() {
     if (this.props.status === "dead" && this.props.value.value === "B") {
-      console.log("howdy partner");
       return (
         <button className="square" style={{ background: "red" }}>
           <FaBomb />
@@ -25,7 +24,10 @@ class Square extends Component {
           }}
           className="square"
           style={{ background: "#666" }}
+
+          // right click
           onContextMenu={e => {
+            console.log("conext menu was selected")
             e.preventDefault();
             this.props.setFlag();
           }}

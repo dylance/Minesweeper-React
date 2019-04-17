@@ -7,7 +7,10 @@ import createGrid from "../utils/createGrid";
 class App extends Component {
   state = {
     grid: [],
-    status: "alive"
+    status: "alive",
+    width: 20,
+    height: 20,
+    bombs: 5,
   };
 
   clicked = (i, j) => {
@@ -18,7 +21,7 @@ class App extends Component {
       return;
     }
 
-    revealBlanks(grid, i, j);
+    revealBlanks(grid, i, j, this.state.width, this.state.height);
     grid[i][j].display = "visible";
     this.setState({
       grid
@@ -56,13 +59,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-
-    let newGrid = createGrid(10,10,3).map(row => {
+    let newGrid = createGrid(this.state.width,this.state.height,this.state.bombs).map(row => {
       return row.map(square => {
         return { value: square, display: "hidden" };
       });
     });
-    console.log("the component has mounted, the grid is: ", )
+
     this.setState({ grid: newGrid });
   }
 
@@ -75,6 +77,8 @@ class App extends Component {
           clicked={this.clicked}
           status={this.state.status}
           setFlag={this.setFlag}
+          height={this.state.height}
+          width={this.state.width}
         />
         <PlayAgain aliveOrNot={this.state.status} />
       </div>
@@ -82,13 +86,16 @@ class App extends Component {
   }
 }
 
-function revealBlanks(grid, i, j) {
+function revealBlanks(grid, i, j, width, height) {
   if (grid[i][j].value !== "") {
     return;
   }
+
+  console.log("the width is: ", width);
+
   grid[i][j].checked = true;
   // general case
-  if (i > 0 && i < 9 && j > 0 && j < 9 && grid[i][j].value === "") {
+  if (i > 0 && i < height - 1 && j > 0 && j < width - 1 && grid[i][j].value === "") {
     let perimeter = [
       [i - 1, j - 1],
       [i - 1, j],
@@ -104,7 +111,7 @@ function revealBlanks(grid, i, j) {
       if (grid[square[0]][square[1]].value === "") {
         grid[square[0]][square[1]].display = "visible";
         if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1]);
+          revealBlanks(grid, square[0], square[1], width, height);
         }
       }
     });
@@ -122,13 +129,13 @@ function revealBlanks(grid, i, j) {
       if (grid[square[0]][square[1]].value === "") {
         grid[square[0]][square[1]].display = "visible";
         if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1]);
+          revealBlanks(grid, square[0], square[1], width, height);
         }
       }
     });
   }
   // right column
-  if (j === 9 && i > 0 && i < 9) {
+  if (j === width - 1 && i > 0 && i < height - 1) {
     const perimeter = [
       [i - 1, j],
       [i - 1, j - 1],
@@ -140,14 +147,14 @@ function revealBlanks(grid, i, j) {
       if (grid[square[0]][square[1]].value === "") {
         grid[square[0]][square[1]].display = "visible";
         if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1]);
+          revealBlanks(grid, square[0], square[1], width, height);
         }
       }
     });
   }
 
   // top row
-  if (i === 0 && j > 0 && j < 9) {
+  if (i === 0 && j > 0 && j < width - 1) {
     const perimeter = [
       [i, j - 1],
       [i, j + 1],
@@ -159,14 +166,14 @@ function revealBlanks(grid, i, j) {
       if (grid[square[0]][square[1]].value === "") {
         grid[square[0]][square[1]].display = "visible";
         if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1]);
+          revealBlanks(grid, square[0], square[1], width, height);
         }
       }
     });
   }
 
   // bottom row
-  if (i === 9 && j > 0 && j < 9) {
+  if (i === height - 1 && j > 0 && j < width - 1) {
     const perimeter = [
       [i, j - 1],
       [i, j + 1],
@@ -178,7 +185,7 @@ function revealBlanks(grid, i, j) {
       if (grid[square[0]][square[1]].value === "") {
         grid[square[0]][square[1]].display = "visible";
         if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1]);
+          revealBlanks(grid, square[0], square[1], width, height);
         }
       }
     });
@@ -187,28 +194,28 @@ function revealBlanks(grid, i, j) {
   /// Corner Cases
   if (i === 0 && j === 0) {
     const perimeter = [[i, j + 1], [i + 1, j], [i + 1, j + 1]];
-    checkNeighbors(perimeter, grid);
+    checkNeighbors(perimeter, grid, width, height);
   }
-  if (i === 0 && j === 9) {
+  if (i === 0 && j === width - 1) {
     const perimeter = [[i, j - 1], [i + 1, j], [i + 1, j - 1]];
-    checkNeighbors(perimeter, grid);
+    checkNeighbors(perimeter, grid, width, height);
   }
-  if (i === 9 && j === 0) {
+  if (i === height - 1 && j === 0) {
     const perimeter = [[i, j + 1], [i - 1, j], [i - 1, j + 1]];
-    checkNeighbors(perimeter, grid);
+    checkNeighbors(perimeter, grid, width, height);
   }
-  if (i === 9 && j === 9) {
+  if (i === height - 1 && j === width - 1) {
     const perimeter = [[i, j - 1], [i - 1, j], [i - 1, j - 1]];
-    checkNeighbors(perimeter, grid);
+    checkNeighbors(perimeter, grid, width, height);
   }
 }
 
-function checkNeighbors(perimeter, grid) {
+function checkNeighbors(perimeter, grid, width, height) {
   perimeter.forEach(square => {
     if (grid[square[0]][square[1]].value === "") {
       grid[square[0]][square[1]].display = "visible";
       if (!grid[square[0]][square[1]].checked) {
-        revealBlanks(grid, square[0], square[1]);
+        revealBlanks(grid, square[0], square[1], width, height);
       }
     }
   });

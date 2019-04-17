@@ -4,9 +4,6 @@ import Square from "./Square";
 
 class Board extends Component {
   renderSquare(value, i, j) {
-    //x = x.toString();
-    //y = y.toString();
-    //let key = x+y
     return (
       <Square
         value={value}
@@ -19,11 +16,12 @@ class Board extends Component {
   }
 
   createBoard = () => {
+    let { grid, height, width } = this.props;
     let board = [];
-    for (let i = 0, count = 0; i < 10; i++) {
+    for (let i = 0, count = 0; i < height; i++) {
       let squares = [];
-      for (let j = 0; j < 10; j++) {
-        squares.push(this.renderSquare(this.props.grid[i][j], i, j));
+      for (let j = 0; j < width; j++) {
+        squares.push(this.renderSquare(grid[i][j], i, j));
         count++;
       }
       board.push(
@@ -34,6 +32,7 @@ class Board extends Component {
     }
     return board;
   };
+
   render() {
     if (this.props.grid.length === 0) {
       return <div>Loading</div>;

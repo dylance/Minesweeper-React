@@ -7,7 +7,7 @@ class PlayAgain extends Component {
   }
 
   render() {
-  if (this.props.aliveOrNot != "alive") {
+  if (this.props.aliveOrNot !== "alive") {
     return(
       <div>
         <button onClick={this.refreshPage}>Play again?</button>
