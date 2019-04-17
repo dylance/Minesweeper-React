@@ -1,27 +1,7 @@
-const randomNum = () => {
-  return Math.floor(Math.random() * 10);
-};
-
-const generateMine = () => {
-  return [randomNum(), randomNum()];
-};
-
-const checkDuplicate = mines => {
-  let duplicate = false;
-  let newMine = generateMine();
-
-  mines.forEach(mine => {
-    if (mine[0] === newMine[0] && mine[1] === newMine[1]) {
-      duplicate = true;
-    }
-  });
-
-  return duplicate ? checkDuplicate(mines) : newMine;
-};
-
-let row = Array(10).fill(null);
+import checkDuplicate from './checkDuplicate';
 
 let grid = [];
+let row = Array(10).fill(null);
 
 for (let i = 0; i < 10; i++) {
   grid.push(row.slice());

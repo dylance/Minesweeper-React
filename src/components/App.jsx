@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
-import grid from "../utils/fillBoard";
+import grid from "../utils/createGrid";
 
 class App extends Component {
   state = {
@@ -54,13 +54,15 @@ class App extends Component {
       this.checkWin(this.state.grid);
     }
   }
+
   componentDidMount() {
+
     let newGrid = grid.map(row => {
       return row.map(square => {
         return { value: square, display: "hidden" };
       });
     });
-
+    console.log("the component has mounted, the grid is: ", )
     this.setState({ grid: newGrid });
   }
 
@@ -74,7 +76,7 @@ class App extends Component {
           status={this.state.status}
           setFlag={this.setFlag}
         />
-      <PlayAgain aliveOrNot={this.state.status} />
+        <PlayAgain aliveOrNot={this.state.status} />
       </div>
     );
   }
