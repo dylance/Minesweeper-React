@@ -13,7 +13,7 @@ const checkDuplicate = (mines, height, width) => {
     }
   });
 
-  return duplicate ? checkDuplicate(mines) : newMine;
+  return duplicate ? checkDuplicate(mines, height, width) : newMine;
 };
 
 export default checkDuplicate;
