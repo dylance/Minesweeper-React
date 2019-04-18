@@ -74,8 +74,8 @@ class App extends Component {
       grid: newGrid,
       height: this.state.tempheight,
       width: this.state.tempwidth,
-      bombs: this.state.tempbombs
-
+      bombs: this.state.tempbombs,
+      status: "alive",
     });
 
   }
