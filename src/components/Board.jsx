@@ -35,7 +35,7 @@ class Board extends Component {
 
   render() {
     if (this.props.grid.length === 0) {
-      return <div>Loading</div>;
+      return <div>Create a Board</div>;
     }
     return <div>{this.createBoard()}</div>;
   }

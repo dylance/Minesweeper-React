@@ -2,15 +2,19 @@ import React, { Component } from "react";
 
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
+import SelectSize from "./SelectSize";
 import createGrid from "../utils/createGrid";
 
 class App extends Component {
   state = {
     grid: [],
     status: "alive",
-    width: 20,
-    height: 20,
+    width: 15,
+    height: 15,
     bombs: 5,
+    tempwidth: 0,
+    tempheight: 0,
+    tempbombs: 0,
   };
 
   clicked = (i, j) => {
@@ -34,11 +38,12 @@ class App extends Component {
     this.setState({
       grid
     });
-
-
   }
 
   checkWin = grid => {
+    if (grid.length === 0) {
+      return;
+    }
     for (let i = 0; i < grid.length; i++) {
       for (let j = 0; j < grid[i].length; j++) {
         if (grid[i][j].value !== "B" && grid[i][j].display === "hidden") {
@@ -52,6 +57,29 @@ class App extends Component {
     });
   };
 
+  onChange = (e) => {
+    this.setState({["temp" + e.target.name]: e.target.value});
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    let newGrid = createGrid(this.state.tempwidth, this.state.tempheight, this.state.tempbombs).map(row => {
+      return row.map(square => {
+        return { value: square, display: "hidden" };
+      });
+    });
+
+    this.setState({
+      grid: newGrid,
+      height: this.state.tempheight,
+      width: this.state.tempwidth,
+      bombs: this.state.tempbombs
+
+    });
+
+  }
+
   componentDidUpdate() {
     if (this.state.status !== "won") {
       this.checkWin(this.state.grid);
@@ -59,26 +87,33 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let newGrid = createGrid(this.state.width,this.state.height,this.state.bombs).map(row => {
-      return row.map(square => {
-        return { value: square, display: "hidden" };
-      });
-    });
-
-    this.setState({ grid: newGrid });
+    // let newGrid = createGrid(this.state.width,this.state.height,this.state.bombs).map(row => {
+    //   return row.map(square => {
+    //     return { value: square, display: "hidden" };
+    //   });
+    // });
+    //
+    // //this.setState({ grid: newGrid });
   }
 
   render() {
     return (
       <div>
         <h1>{this.state.status}</h1>
+        <SelectSize
+          handleSubmit={this.handleSubmit}
+          onChange={this.onChange}
+          width={this.state.tempwidth}
+          height={this.state.tempheight}
+          bombs={this.state.tempbombs}
+        />
         <Board
           grid={this.state.grid}
           clicked={this.clicked}
           status={this.state.status}
           setFlag={this.setFlag}
-          height={this.state.height}
-          width={this.state.width}
+          height={this.state.tempheight}
+          width={this.state.tempwidth}
         />
         <PlayAgain aliveOrNot={this.state.status} />
       </div>
@@ -90,8 +125,6 @@ function revealBlanks(grid, i, j, width, height) {
   if (grid[i][j].value !== "") {
     return;
   }
-
-  console.log("the width is: ", width);
 
   grid[i][j].checked = true;
   // general case
