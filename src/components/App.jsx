@@ -18,7 +18,7 @@ class App extends Component {
     minutes: 0,
     seconds: 0,
     zeroPlace: 0,
-    timerOn: false
+    timerOn: null,
   };
 
   clicked = (i, j) => {
@@ -35,7 +35,7 @@ class App extends Component {
       grid
     });
 
-    if (this.state.timerOn === false) {
+    if (!this.state.timerOn) {
       this.timer = setInterval(() => {
         // reset seconds every minute and add one minute
         if (this.state.seconds != 0 && this.state.seconds % 59 === 0) {
@@ -78,6 +78,7 @@ class App extends Component {
       }
     }
 
+    clearInterval(this.timer);
     this.setState({
       status: "won"
     });
