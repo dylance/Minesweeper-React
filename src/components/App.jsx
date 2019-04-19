@@ -36,6 +36,7 @@ class App extends Component {
     });
 
     if (!this.state.timerOn) {
+      console.log("the timer is not on")
       this.timer = setInterval(() => {
         // reset seconds every minute and add one minute
         if (this.state.seconds != 0 && this.state.seconds % 59 === 0) {
@@ -80,7 +81,8 @@ class App extends Component {
 
     clearInterval(this.timer);
     this.setState({
-      status: "won"
+      status: "won",
+      timerOn: null,
     });
   };
 
@@ -103,6 +105,9 @@ class App extends Component {
       width: this.state.tempwidth,
       bombs: this.state.tempbombs,
       status: "alive",
+      minutes: 0,
+      seconds: 0,
+      zeroPlace: 0,
     });
 
   }
