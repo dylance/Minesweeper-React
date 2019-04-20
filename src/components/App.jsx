@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
 import SelectSize from "./SelectSize";
+import Timer from "./Timer";
 import createGrid from "../utils/createGrid";
 import revealBlanks from "../utils/revealBlanks";
 
@@ -143,7 +144,11 @@ class App extends Component {
           height={this.state.tempheight}
           bombs={this.state.tempbombs}
         />
-        <h1>minutes: {this.state.minutes}:{this.state.zeroPlace}{this.state.seconds}</h1>
+        <Timer
+          minutes={this.state.minutes}
+          zeroPlace={this.state.zeroPlace}
+          seconds={this.state.seconds}
+        />        
         <Board
           grid={this.state.grid}
           clicked={this.clicked}
