@@ -123,16 +123,6 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    // let newGrid = createGrid(this.state.width,this.state.height,this.state.bombs).map(row => {
-    //   return row.map(square => {
-    //     return { value: square, display: "hidden" };
-    //   });
-    // });
-    //
-    // //this.setState({ grid: newGrid });
-  }
-
   render() {
     return (
       <div>
@@ -148,7 +138,7 @@ class App extends Component {
           minutes={this.state.minutes}
           zeroPlace={this.state.zeroPlace}
           seconds={this.state.seconds}
-        />        
+        />
         <Board
           grid={this.state.grid}
           clicked={this.clicked}
