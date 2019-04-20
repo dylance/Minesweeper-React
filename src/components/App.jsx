@@ -41,7 +41,6 @@ class App extends Component {
     });
 
     if (!this.state.timerOn) {
-      console.log("the timer is not on")
       this.timer = setInterval(() => {
         // reset seconds every minute and add one minute
         if (this.state.seconds !== 0 && this.state.seconds % 59 === 0) {
