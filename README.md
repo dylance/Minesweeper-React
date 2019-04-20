@@ -15,7 +15,8 @@ To do:
 
 
 To do:
-  - Allow user to select size of grid and number of mines
+  - Allow user to select size of grid and number of mines - Complete
   - Add styling
-  - Add timer
+  - Add timer - Complete
   - connect to db with high scores saved
+  - Add Redux
