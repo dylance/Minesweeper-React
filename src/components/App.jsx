@@ -44,7 +44,7 @@ class App extends Component {
       console.log("the timer is not on")
       this.timer = setInterval(() => {
         // reset seconds every minute and add one minute
-        if (this.state.seconds != 0 && this.state.seconds % 59 === 0) {
+        if (this.state.seconds !== 0 && this.state.seconds % 59 === 0) {
           this.setState({ minutes: this.state.minutes+1, seconds: -1 })
         }
         // remove zero place after 9 seconds
