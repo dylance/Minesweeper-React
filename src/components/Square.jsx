@@ -16,18 +16,15 @@ class Square extends Component {
         <button
           onClick={e => {
             e.preventDefault();
-            console.log("theh clicked button is:", e.button);
             this.props.clicked();
           }}
-          onMouseDown={e => {
-            console.log(e.button);
-          }}
+          // onMouseDown={e => {
+          // }}
           className="square"
           style={{ background: "#666" }}
 
           // right click
           onContextMenu={e => {
-            console.log("conext menu was selected")
             e.preventDefault();
             this.props.setFlag();
           }}

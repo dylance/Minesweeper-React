@@ -3,7 +3,9 @@ import React, { Component } from "react";
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
 import SelectSize from "./SelectSize";
+import Timer from "./Timer";
 import createGrid from "../utils/createGrid";
+import revealBlanks from "../utils/revealBlanks";
 
 class App extends Component {
   state = {
@@ -22,7 +24,9 @@ class App extends Component {
   };
 
   clicked = (i, j) => {
-    let grid = this.state.grid.slice();
+    let grid = this.state.grid.map(row => {
+      return row.slice();
+    });
 
     if (grid[i][j].value === "B") {
       this.setState({ status: "dead" });
@@ -30,16 +34,16 @@ class App extends Component {
     }
 
     revealBlanks(grid, i, j, this.state.width, this.state.height);
+
     grid[i][j].display = "visible";
     this.setState({
       grid
     });
 
     if (!this.state.timerOn) {
-      console.log("the timer is not on")
       this.timer = setInterval(() => {
         // reset seconds every minute and add one minute
-        if (this.state.seconds != 0 && this.state.seconds % 59 === 0) {
+        if (this.state.seconds !== 0 && this.state.seconds % 59 === 0) {
           this.setState({ minutes: this.state.minutes+1, seconds: -1 })
         }
         // remove zero place after 9 seconds
@@ -118,16 +122,6 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    // let newGrid = createGrid(this.state.width,this.state.height,this.state.bombs).map(row => {
-    //   return row.map(square => {
-    //     return { value: square, display: "hidden" };
-    //   });
-    // });
-    //
-    // //this.setState({ grid: newGrid });
-  }
-
   render() {
     return (
       <div>
@@ -139,7 +133,11 @@ class App extends Component {
           height={this.state.tempheight}
           bombs={this.state.tempbombs}
         />
-        <h1>minutes: {this.state.minutes}:{this.state.zeroPlace}{this.state.seconds}</h1>
+        <Timer
+          minutes={this.state.minutes}
+          zeroPlace={this.state.zeroPlace}
+          seconds={this.state.seconds}
+        />
         <Board
           grid={this.state.grid}
           clicked={this.clicked}
@@ -152,139 +150,6 @@ class App extends Component {
       </div>
     );
   }
-}
-
-function revealBlanks(grid, i, j, width, height) {
-  if (grid[i][j].value !== "") {
-    return;
-  }
-
-  grid[i][j].checked = true;
-  // general case
-  if (i > 0 && i < height - 1 && j > 0 && j < width - 1 && grid[i][j].value === "") {
-    let perimeter = [
-      [i - 1, j - 1],
-      [i - 1, j],
-      [i - 1, j + 1],
-      [i, j - 1],
-      [i, j + 1],
-      [i + 1, j - 1],
-      [i + 1, j],
-      [i + 1, j + 1]
-    ];
-
-    perimeter.forEach(square => {
-      if (grid[square[0]][square[1]].value === "") {
-        grid[square[0]][square[1]].display = "visible";
-        if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1], width, height);
-        }
-      }
-    });
-  }
-  // left column
-  if (j === 0 && i > 0 && i < 9) {
-    const perimeter = [
-      [i - 1, j],
-      [i - 1, j + 1],
-      [i, j + 1],
-      [i + 1, j],
-      [i + 1, j + 1]
-    ];
-    perimeter.forEach(square => {
-      if (grid[square[0]][square[1]].value === "") {
-        grid[square[0]][square[1]].display = "visible";
-        if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1], width, height);
-        }
-      }
-    });
-  }
-  // right column
-  if (j === width - 1 && i > 0 && i < height - 1) {
-    const perimeter = [
-      [i - 1, j],
-      [i - 1, j - 1],
-      [i, j - 1],
-      [i + 1, j],
-      [i + 1, j - 1]
-    ];
-    perimeter.forEach(square => {
-      if (grid[square[0]][square[1]].value === "") {
-        grid[square[0]][square[1]].display = "visible";
-        if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1], width, height);
-        }
-      }
-    });
-  }
-
-  // top row
-  if (i === 0 && j > 0 && j < width - 1) {
-    const perimeter = [
-      [i, j - 1],
-      [i, j + 1],
-      [i + 1, j - 1],
-      [i + 1, j],
-      [i + 1, j + 1]
-    ];
-    perimeter.forEach(square => {
-      if (grid[square[0]][square[1]].value === "") {
-        grid[square[0]][square[1]].display = "visible";
-        if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1], width, height);
-        }
-      }
-    });
-  }
-
-  // bottom row
-  if (i === height - 1 && j > 0 && j < width - 1) {
-    const perimeter = [
-      [i, j - 1],
-      [i, j + 1],
-      [i - 1, j - 1],
-      [i - 1, j],
-      [i - 1, j + 1]
-    ];
-    perimeter.forEach(square => {
-      if (grid[square[0]][square[1]].value === "") {
-        grid[square[0]][square[1]].display = "visible";
-        if (!grid[square[0]][square[1]].checked) {
-          revealBlanks(grid, square[0], square[1], width, height);
-        }
-      }
-    });
-  }
-
-  /// Corner Cases
-  if (i === 0 && j === 0) {
-    const perimeter = [[i, j + 1], [i + 1, j], [i + 1, j + 1]];
-    checkNeighbors(perimeter, grid, width, height);
-  }
-  if (i === 0 && j === width - 1) {
-    const perimeter = [[i, j - 1], [i + 1, j], [i + 1, j - 1]];
-    checkNeighbors(perimeter, grid, width, height);
-  }
-  if (i === height - 1 && j === 0) {
-    const perimeter = [[i, j + 1], [i - 1, j], [i - 1, j + 1]];
-    checkNeighbors(perimeter, grid, width, height);
-  }
-  if (i === height - 1 && j === width - 1) {
-    const perimeter = [[i, j - 1], [i - 1, j], [i - 1, j - 1]];
-    checkNeighbors(perimeter, grid, width, height);
-  }
-}
-
-function checkNeighbors(perimeter, grid, width, height) {
-  perimeter.forEach(square => {
-    if (grid[square[0]][square[1]].value === "") {
-      grid[square[0]][square[1]].display = "visible";
-      if (!grid[square[0]][square[1]].checked) {
-        revealBlanks(grid, square[0], square[1], width, height);
-      }
-    }
-  });
 }
 
 export default App;
