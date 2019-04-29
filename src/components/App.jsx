@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
@@ -123,33 +124,48 @@ class App extends Component {
   }
 
   render() {
+    console.log("The App's props are: ", this.props)
     return (
       <div>
         <h1>{this.state.status}</h1>
-        <SelectSize
-          handleSubmit={this.handleSubmit}
-          onChange={this.onChange}
-          width={this.state.tempwidth}
-          height={this.state.tempheight}
-          bombs={this.state.tempbombs}
+{        // <SelectSize
+        //   handleSubmit={this.handleSubmit}
+        //   onChange={this.onChange}
+        //   width={this.state.tempwidth}
+        //   height={this.state.tempheight}
+        //   bombs={this.state.tempbombs}
+        // />
+        // <Timer
+        //   minutes={this.state.minutes}
+        //   zeroPlace={this.state.zeroPlace}
+        //   seconds={this.state.seconds}
+        // />
+        // <Board
+        //   grid={this.state.grid}
+        //   clicked={this.clicked}
+        //   status={this.state.status}
+        //   setFlag={this.setFlag}
+        //   height={this.state.tempheight}
+        //   width={this.state.tempwidth}
+        // />
+        // <PlayAgain aliveOrNot={this.state.status} />
+      }<Board
+          grid={this.props.board}
+            clicked={this.clicked}
+            status={this.state.status}
+            setFlag={this.setFlag}
+            height={10}
+            width={10}
         />
-        <Timer
-          minutes={this.state.minutes}
-          zeroPlace={this.state.zeroPlace}
-          seconds={this.state.seconds}
-        />
-        <Board
-          grid={this.state.grid}
-          clicked={this.clicked}
-          status={this.state.status}
-          setFlag={this.setFlag}
-          height={this.state.tempheight}
-          width={this.state.tempwidth}
-        />
-        <PlayAgain aliveOrNot={this.state.status} />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps({ board }) {
+  return {
+    board
+  }
+}
+
+export default connect(mapStateToProps)(App)
