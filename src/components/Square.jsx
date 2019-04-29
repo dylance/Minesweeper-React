@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { FaBomb, FaFlagCheckered } from "react-icons/fa";
+import { setFlag } from "../actions/board";
+import { connect } from "react-redux";
 
 class Square extends Component {
   render() {
@@ -26,7 +28,9 @@ class Square extends Component {
           // right click
           onContextMenu={e => {
             e.preventDefault();
-            this.props.setFlag();
+            console.log("Hellllo")
+            this.props.dispatch(setFlag(this.props.board,5,5))
+            //this.props.setFlag();
           }}
         />
       );
@@ -50,4 +54,10 @@ class Square extends Component {
   }
 }
 
-export default Square;
+function mapStateToProps({ board }) {
+  return {
+    board
+  }
+}
+
+export default connect(mapStateToProps)(Square)
