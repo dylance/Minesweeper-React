@@ -29,7 +29,7 @@ class Square extends Component {
           onContextMenu={e => {
             e.preventDefault();
             console.log("Hellllo")
-            this.props.dispatch(setFlag(this.props.board,5,5))
+            this.props.dispatch(setFlag(this.props.board,this.props.i,this.props.j))
             //this.props.setFlag();
           }}
         />
@@ -42,7 +42,7 @@ class Square extends Component {
           className="square"
           onContextMenu={e => {
             e.preventDefault();
-            this.props.setFlag();
+            this.props.dispatch(setFlag(this.props.board,this.props.i,this.props.j))
           }}
         >
           <FaFlagCheckered />
