@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FaBomb, FaFlagCheckered } from "react-icons/fa";
-import { setFlag } from "../actions/board";
+import { setFlag, onClick } from "../actions/board";
 import { connect } from "react-redux";
 
 class Square extends Component {
@@ -18,7 +18,7 @@ class Square extends Component {
         <button
           onClick={e => {
             e.preventDefault();
-            this.props.clicked();
+            this.props.dispatch(onClick(this.props.board,this.props.i,this.props.j));
           }}
           // onMouseDown={e => {
           // }}
