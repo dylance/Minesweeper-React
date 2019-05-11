@@ -7,6 +7,7 @@ import SelectSize from "./SelectSize";
 import Timer from "./Timer";
 import createGrid from "../utils/createGrid";
 import revealBlanks from "../utils/revealBlanks";
+import { checkWin } from "../actions/game";
 
 class App extends Component {
   state = {
@@ -118,12 +119,17 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.status !== "won") {
-      this.checkWin(this.state.grid);
-    }
+    // if (this.state.status !== "won") {
+    //   //this.checkWin(this.state.grid);
+    // }
+    const { game, board } = this.props;
+    if (game.status !== 'won') {
+      this.props.dispatch(checkWin(game, board));
+    }  
   }
 
   render() {
+
     console.log("The App's props are: ", this.props)
     return (
       <div>
