@@ -5,8 +5,12 @@ import { makeMove } from "../actions/game";
 import { connect } from "react-redux";
 
 class Square extends Component {
+
   render() {
-    if (this.props.status === "dead" && this.props.value.value === "B") {
+    console.log("the fucking game is:  ", this.props.game)
+    const { game, board, i, j } = this.props;
+
+    if (game.status === "dead fool" && board[i][j].value === "B" ) {
       return (
         <button className="square" style={{ background: "red" }}>
           <FaBomb />
@@ -15,7 +19,6 @@ class Square extends Component {
     }
 
     if (this.props.value.display === "hidden") {
-      const { game, board, i, j } = this.props;
       return (
         <button
           onClick={e => {
