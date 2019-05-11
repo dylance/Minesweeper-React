@@ -149,7 +149,10 @@ class App extends Component {
         //   width={this.state.tempwidth}
         // />
         // <PlayAgain aliveOrNot={this.state.status} />
-      }<Board
+
+      }
+      <h1>{this.props.game.status}</h1>
+      <Board
           grid={this.props.board}
             clicked={this.clicked}
             status={this.state.status}
@@ -162,9 +165,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ board }) {
+function mapStateToProps({ board, game }) {
   return {
-    board
+    board,
+    game
   }
 }
 

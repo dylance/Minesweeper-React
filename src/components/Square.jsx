@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FaBomb, FaFlagCheckered } from "react-icons/fa";
 import { setFlag, onClick } from "../actions/board";
+import { makeMove } from "../actions/game";
 import { connect } from "react-redux";
 
 class Square extends Component {
@@ -14,10 +15,12 @@ class Square extends Component {
     }
 
     if (this.props.value.display === "hidden") {
+      const { game, board, i, j } = this.props;
       return (
         <button
           onClick={e => {
             e.preventDefault();
+            this.props.dispatch(makeMove(game, board, i, j));
             this.props.dispatch(onClick(this.props.board,this.props.i,this.props.j));
           }}
           // onMouseDown={e => {
@@ -29,7 +32,7 @@ class Square extends Component {
           onContextMenu={e => {
             e.preventDefault();
             console.log("Hellllo")
-            this.props.dispatch(setFlag(this.props.board,this.props.i,this.props.j))
+            this.props.dispatch(setFlag(board, i, j))
             //this.props.setFlag();
           }}
         />
@@ -54,9 +57,10 @@ class Square extends Component {
   }
 }
 
-function mapStateToProps({ board }) {
+function mapStateToProps({ board, game }) {
   return {
-    board
+    board,
+    game
   }
 }
 

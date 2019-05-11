@@ -22,7 +22,7 @@ export function setFlag(board, i, j) {
 
   return {
     type: SET_FLAG,
-    board: board2
+    board: board2,
   };
 }
 

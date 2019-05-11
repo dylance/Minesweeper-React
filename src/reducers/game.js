@@ -1,9 +1,9 @@
-import { CREATE_BOARD } from "../actions/board";
+import { CHECK_BOMB } from "../actions/game";
 
-export default function board(state = {status: 'alive', width: 0, height: 0, bombs: 0}, action) {
+export default function game(state = {status: 'alive', width: 0, height: 0, bombs: 0}, action) {
   switch (action.type) {
-    case CREATE_BOARD:
-      return action.board
+    case CHECK_BOMB:
+      return action.payload;
     default:
       return state;
   }
