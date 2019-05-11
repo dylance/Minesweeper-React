@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
-import SelectSize from "./SelectSize";
+import SelectSizeForm from "./SelectSizeForm";
 import Timer from "./Timer";
 import createGrid from "../utils/createGrid";
 import revealBlanks from "../utils/revealBlanks";
@@ -125,7 +125,7 @@ class App extends Component {
     const { game, board } = this.props;
     if (game.status !== 'won') {
       this.props.dispatch(checkWin(game, board));
-    }  
+    }
   }
 
   render() {
@@ -134,13 +134,14 @@ class App extends Component {
     return (
       <div>
         <h1>{this.state.status}</h1>
-{        // <SelectSize
-        //   handleSubmit={this.handleSubmit}
-        //   onChange={this.onChange}
-        //   width={this.state.tempwidth}
-        //   height={this.state.tempheight}
-        //   bombs={this.state.tempbombs}
-        // />
+          <SelectSizeForm
+            handleSubmit={this.handleSubmit}
+            onChange={this.onChange}
+            width={this.state.tempwidth}
+            height={this.state.tempheight}
+            bombs={this.state.tempbombs}
+          />
+        {
         // <Timer
         //   minutes={this.state.minutes}
         //   zeroPlace={this.state.zeroPlace}
