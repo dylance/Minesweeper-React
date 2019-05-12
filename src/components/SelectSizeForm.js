@@ -16,10 +16,9 @@ class SelectSizeForm extends Component {
     e.preventDefault();
     const formData = {
       height: this.state.height,
-      width: this.state.height,
+      width: this.state.width,
       bombs: this.state.bombs
     };
-
     this.props.setItems(formData);
   }
 

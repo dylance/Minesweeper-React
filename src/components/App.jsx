@@ -134,13 +134,7 @@ class App extends Component {
     return (
       <div>
         <h1>{this.state.status}</h1>
-          <SelectSizeForm
-            handleSubmit={this.handleSubmit}
-            onChange={this.onChange}
-            width={this.state.tempwidth}
-            height={this.state.tempheight}
-            bombs={this.state.tempbombs}
-          />
+          <SelectSizeForm />
         {
         // <Timer
         //   minutes={this.state.minutes}
