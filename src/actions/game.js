@@ -1,5 +1,6 @@
 export const CHECK_BOMB = "CHECK_BOMB";
 export const CHECK_WIN = "CHECK_WIN";
+export const RESET_STATUS = "RESET_STATUS";
 
 export function makeMove(game, board, i, j) {
   if(board[i][j].value === "B") {
@@ -42,4 +43,16 @@ export function checkWin(game, board) {
 
 }
 
+}
+
+export function resetStatus(width,height,bombs) {
+  return {
+    type: RESET_STATUS,
+    payload: {
+      status: 'alive',
+      width,
+      height,
+      bombs
+    }
+  }
 }
