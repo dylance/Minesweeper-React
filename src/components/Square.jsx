@@ -24,7 +24,7 @@ class Square extends Component {
           onClick={e => {
             e.preventDefault();
             this.props.dispatch(makeMove(game, board, i, j));
-            this.props.dispatch(onClick(this.props.board,this.props.i,this.props.j));
+            this.props.dispatch(onClick(this.props.board,this.props.i,this.props.j,this.props.game.height,this.props.game.width));
           }}
           // onMouseDown={e => {
           // }}
