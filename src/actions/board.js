@@ -8,7 +8,10 @@ export const ON_CLICK = "ON_CLICK";
 
 
 export function createBoard(height, width, bombs) {
-  const board = createGrid(height,width , bombs)
+  console.log("The height is: ", height);
+  console.log("The width is: ", width);
+  console.log("The bombs is: ", bombs);
+  const board = createGrid( height, width , bombs);
 
   return {
     type: CREATE_BOARD,

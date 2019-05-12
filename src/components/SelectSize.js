@@ -16,6 +16,7 @@ class SelectSize extends Component {
     event.preventDefault();
     console.log("Submit has been handled")
     this.props.dispatch(createBoard(height, width, bombs));
+    //this.props.dispatch(resetStatus());
   }
 
   onChange = (e) => {

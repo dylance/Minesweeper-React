@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 class Square extends Component {
 
   render() {
-    console.log("the fucking game is:  ", this.props.game)
+    //console.log("the fucking game is:  ", this.props.game)
     const { game, board, i, j } = this.props;
 
     if (game.status === "dead fool" && board[i][j].value === "B" ) {
