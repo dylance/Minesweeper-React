@@ -15,7 +15,7 @@ class SelectSize extends Component {
     const { width, height, bombs } = this.state;
     event.preventDefault();
     console.log("Submit has been handled")
-    this.props.dispatch(createBoard(height, width, bombs));
+    this.props.createBoard(height, width, bombs);
     //this.props.dispatch(resetStatus());
   }
 
@@ -54,4 +54,4 @@ function mapStateToProps({ board, game }) {
   }
 }
 
-export default connect(mapStateToProps)(SelectSize);
+export default connect(mapStateToProps, { createBoard })(SelectSize);
