@@ -1,4 +1,5 @@
 import revealBlanks from "../utils/revealBlanks";
+import createGrid from "../utils/createGrid";
 
 export const CREATE_BOARD = "CREATE_BOARD";
 export const SET_FLAG = "SET_FLAG";
@@ -6,7 +7,9 @@ export const ON_CLICK = "ON_CLICK";
 
 
 
-export function makeMove(board) {
+export function createBoard(height, width, bombs) {
+  const board = createGrid(height,width , bombs)
+
   return {
     type: CREATE_BOARD,
     board
