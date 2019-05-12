@@ -160,8 +160,8 @@ class App extends Component {
             clicked={this.clicked}
             status={this.state.status}
             setFlag={this.setFlag}
-            height={this.props.board.length}
-            width={this.props.board[0] ? this.props.board[0].length : 0}
+            height={this.props.game.height}
+            width={this.props.game.width}
         />
       </div>
     );
