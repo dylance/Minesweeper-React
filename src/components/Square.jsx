@@ -23,8 +23,8 @@ class Square extends Component {
         <button
           onClick={e => {
             e.preventDefault();
-            this.props.dispatch(makeMove(game, board, i, j));
-            this.props.dispatch(onClick(this.props.board,this.props.i,this.props.j,this.props.game.height,this.props.game.width));
+            this.props.makeMove(game, board, i, j);
+            this.props.onClick(this.props.board,this.props.i,this.props.j,this.props.game.height,this.props.game.width);
           }}
           // onMouseDown={e => {
           // }}
@@ -35,7 +35,7 @@ class Square extends Component {
           onContextMenu={e => {
             e.preventDefault();
             console.log("Hellllo")
-            this.props.dispatch(setFlag(board, i, j))
+            this.props.setFlag(board, i, j)
             //this.props.setFlag();
           }}
         />
@@ -48,7 +48,7 @@ class Square extends Component {
           className="square"
           onContextMenu={e => {
             e.preventDefault();
-            this.props.dispatch(setFlag(this.props.board,this.props.i,this.props.j))
+            this.props.setFlag(this.props.board,this.props.i,this.props.j)
           }}
         >
           <FaFlagCheckered />
@@ -67,4 +67,4 @@ function mapStateToProps({ board, game }) {
   }
 }
 
-export default connect(mapStateToProps)(Square)
+export default connect(mapStateToProps, { makeMove, onClick, setFlag })(Square)
