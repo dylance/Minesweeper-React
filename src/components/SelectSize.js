@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import { createBoard } from "../actions/board";
+import { resetStatus } from "../actions/game";
 
 class SelectSize extends Component {
   state = {
@@ -16,7 +17,7 @@ class SelectSize extends Component {
     event.preventDefault();
     console.log("Submit has been handled")
     this.props.createBoard(height, width, bombs);
-    //this.props.dispatch(resetStatus());
+    this.props.resetStatus(height, width, bombs);
   }
 
   onChange = (e) => {
@@ -54,4 +55,4 @@ function mapStateToProps({ board, game }) {
   }
 }
 
-export default connect(mapStateToProps, { createBoard })(SelectSize);
+export default connect(mapStateToProps, { createBoard, resetStatus })(SelectSize);
