@@ -32,7 +32,7 @@ export function setFlag(board, i, j) {
   };
 }
 
-export function onClick(board, i, j) {
+export function onClick(board, i, j, height, width) {
   let grid = board.map(row => {
     return row.slice();
   });
@@ -42,7 +42,7 @@ export function onClick(board, i, j) {
   //   return;
   // }
 
-  revealBlanks(grid, i, j, 10, 10);
+  revealBlanks(grid, i, j, height, width);
 
   grid[i][j].display = "visible";
 
