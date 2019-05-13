@@ -36,6 +36,7 @@ export function onClick(board, i, j, height, width) {
   let grid = board.map(row => {
     return row.slice();
   });
+  console.log("the grid is:  ", grid)
 
   // if (grid[i][j].value === "B") {
   //   this.setState({ status: "dead" });
