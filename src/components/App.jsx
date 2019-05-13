@@ -3,11 +3,8 @@ import { connect } from "react-redux";
 
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
-//import SelectSizeForm from "./SelectSizeForm";
 import SelectSize from "./SelectSize";
 import Timer from "./Timer";
-import createGrid from "../utils/createGrid";
-import revealBlanks from "../utils/revealBlanks";
 import { checkWin } from "../actions/game";
 
 

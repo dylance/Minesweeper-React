@@ -1,7 +1,5 @@
 import { CREATE_BOARD, SET_FLAG, ON_CLICK } from "../actions/board";
 
-import createGrid from "../utils/createGrid";
-
 export default function board(state = [], action) {
   switch (action.type) {
     case CREATE_BOARD:
