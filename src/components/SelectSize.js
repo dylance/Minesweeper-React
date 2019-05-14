@@ -6,9 +6,9 @@ import { resetStatus } from "../actions/game";
 
 class SelectSize extends Component {
   state = {
-    width: null,
-    height: null,
-    bombs: null,
+    width: '',
+    height: '',
+    bombs: '',
   }
 
 
