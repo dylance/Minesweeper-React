@@ -29,7 +29,7 @@ function revealBlanks(grid, i, j, width, height) {
     });
   }
   // left column
-  if (j === 0 && i > 0 && i < 9) {
+  if (j === 0 && i > 0 && i < width - 1) {
     const perimeter = [
       [i - 1, j],
       [i - 1, j + 1],
