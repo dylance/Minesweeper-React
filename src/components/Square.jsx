@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 class Square extends Component {
 
   render() {
-    //console.log("the fucking game is:  ", this.props.game)
     const { game, board, i, j } = this.props;
 
     if (game.status === "dead fool" && board[i][j].value === "B" ) {
@@ -24,17 +23,15 @@ class Square extends Component {
           onClick={e => {
             e.preventDefault();
             this.props.makeMove(game, board, i, j);
-            this.props.onClick(this.props.board,this.props.i,this.props.j,this.props.game.width,this.props.game.height);
+            this.props.onClick( board, i, j, game.width, game.height);
           }}
-          // onMouseDown={e => {
-          // }}
+
           className="square"
           style={{ background: "#666" }}
 
           // right click
           onContextMenu={e => {
             e.preventDefault();
-            console.log("Hellllo")
             this.props.setFlag(board, i, j)
           }}
         />
