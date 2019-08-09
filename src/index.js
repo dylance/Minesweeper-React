@@ -5,7 +5,7 @@ import store from './store';
 
 import App from "./components/App";
 import reducer from "./reducers";
-import './index.css';
+import './styles/index.scss';
 console.log("the reducer is: ", reducer)
 
 //const store = createStore(reducer)
