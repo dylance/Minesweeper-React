@@ -7,6 +7,19 @@ ol, ul {
   padding-left: 30px;
 }
 
+h1 {
+  text-align: center;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  & > div {
+    margin: 0 auto;
+  }
+}
+
 .board-row:after {
   clear: both;
   content: "";

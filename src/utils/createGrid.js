@@ -106,6 +106,12 @@ const createGrid = (width, height, bombs) => {
     }
   }
 
+   grid = grid.map(row => {
+    return row.map(square => {
+      return { value: square, display: "hidden" };
+    });
+  });
+
   return grid;
 }
 

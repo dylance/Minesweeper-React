@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { FaBomb, FaFlagCheckered } from "react-icons/fa";
+import { setFlag, onClick } from "../actions/board";
+import { makeMove } from "../actions/game";
+import { connect } from "react-redux";
 
 class Square extends Component {
+
   render() {
-    if (this.props.status === "dead" && this.props.value.value === "B") {
+    const { game, board, i, j } = this.props;
+
+    if (game.status === "dead fool" && board[i][j].value === "B" ) {
       return (
         <button className="square" style={{ background: "red" }}>
           <FaBomb />
@@ -16,17 +22,17 @@ class Square extends Component {
         <button
           onClick={e => {
             e.preventDefault();
-            this.props.clicked();
+            this.props.makeMove(game, board, i, j);
+            this.props.onClick( board, i, j, game.width, game.height);
           }}
-          // onMouseDown={e => {
-          // }}
+
           className="square"
           style={{ background: "#666" }}
 
           // right click
           onContextMenu={e => {
             e.preventDefault();
-            this.props.setFlag();
+            this.props.setFlag(board, i, j)
           }}
         />
       );
@@ -38,7 +44,7 @@ class Square extends Component {
           className="square"
           onContextMenu={e => {
             e.preventDefault();
-            this.props.setFlag();
+            this.props.setFlag(this.props.board,this.props.i,this.props.j)
           }}
         >
           <FaFlagCheckered />
@@ -50,4 +56,11 @@ class Square extends Component {
   }
 }
 
-export default Square;
+function mapStateToProps({ board, game }) {
+  return {
+    board,
+    game
+  }
+}
+
+export default connect(mapStateToProps, { makeMove, onClick, setFlag })(Square)

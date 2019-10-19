@@ -1,155 +1,59 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Board from "./Board";
 import PlayAgain from "./PlayAgain";
 import SelectSize from "./SelectSize";
 import Timer from "./Timer";
-import createGrid from "../utils/createGrid";
-import revealBlanks from "../utils/revealBlanks";
+import { checkWin } from "../actions/game";
+
 
 class App extends Component {
   state = {
-    grid: [],
-    status: "alive",
-    width: 15,
-    height: 15,
-    bombs: 5,
-    tempwidth: 0,
-    tempheight: 0,
-    tempbombs: 0,
     minutes: 0,
     seconds: 0,
     zeroPlace: 0,
     timerOn: null,
   };
 
-  clicked = (i, j) => {
-    let grid = this.state.grid.map(row => {
-      return row.slice();
-    });
-
-    if (grid[i][j].value === "B") {
-      this.setState({ status: "dead" });
-      return;
-    }
-
-    revealBlanks(grid, i, j, this.state.width, this.state.height);
-
-    grid[i][j].display = "visible";
-    this.setState({
-      grid
-    });
-
-    if (!this.state.timerOn) {
-      this.timer = setInterval(() => {
-        // reset seconds every minute and add one minute
-        if (this.state.seconds !== 0 && this.state.seconds % 59 === 0) {
-          this.setState({ minutes: this.state.minutes+1, seconds: -1 })
-        }
-        // remove zero place after 9 seconds
-        if (this.state.seconds >= 9) {
-          this.setState({ zeroPlace: '' })
-        }
-        // add zero place if seconds are less than 10
-        if (this.state.seconds < 9) {
-          this.setState({ zeroPlace: 0 })
-        }
-        // add one second every second,
-        // and turn timerOn to true so interval will not run every time someone clicks.
-        this.setState({
-        seconds: this.state.seconds+1,
-        timerOn: true
-      })}, 1000)
-    }
-  };
-
-  setFlag = (i,j) => {
-    let grid = this.state.grid.slice();
-    grid[i][j].display = grid[i][j].display === 'hidden' ? "flag" : 'hidden';
-    this.setState({
-      grid
-    });
-  }
-
-  checkWin = grid => {
-    if (grid.length === 0) {
-      return;
-    }
-    for (let i = 0; i < grid.length; i++) {
-      for (let j = 0; j < grid[i].length; j++) {
-        if (grid[i][j].value !== "B" && grid[i][j].display === "hidden") {
-          return;
-        }
-      }
-    }
-
-    clearInterval(this.timer);
-    this.setState({
-      status: "won",
-      timerOn: null,
-    });
-  };
-
-  onChange = (e) => {
-    this.setState({["temp" + e.target.name]: e.target.value});
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    let newGrid = createGrid(this.state.tempwidth, this.state.tempheight, this.state.tempbombs).map(row => {
-      return row.map(square => {
-        return { value: square, display: "hidden" };
-      });
-    });
-
-    this.setState({
-      grid: newGrid,
-      height: this.state.tempheight,
-      width: this.state.tempwidth,
-      bombs: this.state.tempbombs,
-      status: "alive",
-      minutes: 0,
-      seconds: 0,
-      zeroPlace: 0,
-    });
-
-  }
-
   componentDidUpdate() {
-    if (this.state.status !== "won") {
-      this.checkWin(this.state.grid);
+    // if (this.state.status !== "won") {
+    //   //this.checkWin(this.state.grid);
+    // }
+    const { game, board } = this.props;
+    if (game.status !== 'won') {
+      this.props.dispatch(checkWin(game, board));
     }
   }
 
   render() {
     return (
-      <div>
-        <h1>{this.state.status}</h1>
-        <SelectSize
-          handleSubmit={this.handleSubmit}
-          onChange={this.onChange}
-          width={this.state.tempwidth}
-          height={this.state.tempheight}
-          bombs={this.state.tempbombs}
-        />
-        <Timer
-          minutes={this.state.minutes}
-          zeroPlace={this.state.zeroPlace}
-          seconds={this.state.seconds}
-        />
+      <div className="game-wrapper">
+        <SelectSize />
+        {
+        // <Timer
+        //   minutes={this.state.minutes}
+        //   zeroPlace={this.state.zeroPlace}
+        //   seconds={this.state.seconds}
+        // />
+        // <PlayAgain aliveOrNot={this.state.status} />
+        }
+        <h1>{this.props.game.status}</h1>
         <Board
-          grid={this.state.grid}
-          clicked={this.clicked}
-          status={this.state.status}
-          setFlag={this.setFlag}
-          height={this.state.tempheight}
-          width={this.state.tempwidth}
+          grid={this.props.board}
+          height={this.props.game.height}
+          width={this.props.game.width}
         />
-        <PlayAgain aliveOrNot={this.state.status} />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps({ board, game }) {
+  return {
+    board,
+    game
+  }
+}
+
+export default connect(mapStateToProps)(App)
