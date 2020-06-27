@@ -1,4 +1,5 @@
 import checkDuplicate from './checkDuplicate';
+import { getPerimeter } from '../constants';
 
 const createGrid = (width, height, bombs) => {
   let grid = [];
@@ -29,20 +30,7 @@ const createGrid = (width, height, bombs) => {
       }
       let minesNearby = 0;
 
-      let perimeter = [
-        [i - 1, j - 1],
-        [i - 1, j],
-        [i - 1, j + 1],
-        [i, j - 1],
-        [i, j + 1],
-        [i + 1, j - 1],
-        [i + 1, j],
-        [i + 1, j + 1]
-      ];
-
-      perimeter = perimeter.filter(per => {
-        return per[0] >= 0 && per[0] < width && per[1] >= 0 && per[1] < height;
-      });
+      let perimeter = getPerimeter(i,j, width, height);
 
       perimeter = perimeter.map(cell => {
         return grid[cell[0]][cell[1]]
