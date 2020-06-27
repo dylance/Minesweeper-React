@@ -1,4 +1,4 @@
-import { CREATE_BOARD, SET_FLAG, ON_CLICK } from "../actions/board";
+import { CREATE_BOARD, SET_FLAG, ON_CLICK } from '../actions/board'
 
 export default function board(state = [], action) {
   switch (action.type) {
@@ -9,6 +9,6 @@ export default function board(state = [], action) {
     case ON_CLICK:
       return action.board
     default:
-      return state;
+      return state
   }
 }
