@@ -2,7 +2,10 @@ import { CHECK_BOMB, CHECK_WIN, RESET_STATUS } from '../actions/game'
 
 export default function game(
   state = {
-    status: 'alive', width: 0, height: 0, bombs: 0,
+    status: 'alive',
+    width: 0,
+    height: 0,
+    bombs: 0,
   },
   action
 ) {
