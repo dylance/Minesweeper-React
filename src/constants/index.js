@@ -11,7 +11,7 @@ export const getPerimeter = (x, y, width, height) => {
     [x + 1, y + 1],
   ];
 
-  // Remoe an item from the perimeter if it is outside the grid
+  // Remove an item from the perimeter if it is outside the grid
   return perimeter.filter((per) => {
     return per[0] >= 0 && per[0] < width && per[1] >= 0 && per[1] < height;
   });
