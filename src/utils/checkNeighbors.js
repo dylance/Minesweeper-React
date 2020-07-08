@@ -1,6 +1,6 @@
-import revealBlanks from './revealBlanks';
+import { revealBlanks } from './revealBlanks';
 
-function checkNeighbors(perimeter, grid, width, height) {
+export function checkNeighbors(perimeter, grid, width, height) {
   perimeter.forEach((square) => {
     if (grid[square[0]][square[1]].value === '') {
       grid[square[0]][square[1]].display = 'visible';
@@ -10,5 +10,3 @@ function checkNeighbors(perimeter, grid, width, height) {
     }
   });
 }
-
-export default checkNeighbors;

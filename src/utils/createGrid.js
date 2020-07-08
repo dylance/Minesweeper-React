@@ -1,7 +1,7 @@
-import checkDuplicate from './checkDuplicate';
+import { checkDuplicate } from './checkDuplicate';
 import { getPerimeter } from '../constants';
 
-const createGrid = (width, height, bombs) => {
+export const createGrid = (width, height, bombs) => {
   let grid = [];
   const mines = [];
   const row = Array(width).fill(null);
@@ -54,5 +54,3 @@ const createGrid = (width, height, bombs) => {
 
   return grid;
 };
-
-export default createGrid;

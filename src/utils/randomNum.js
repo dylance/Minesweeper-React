@@ -1,6 +1,4 @@
-// generates random number between 0 & 9 to fill 10x10 board array
-const randomNum = (num) => {
+// generates random number between 0 - num, where num is the max dimension of the board
+export const randomNum = (num) => {
   return Math.floor(Math.random() * num);
 };
-
-export default randomNum;

@@ -1,6 +1,4 @@
-import revealBlanks from '../utils/revealBlanks';
-import createGrid from '../utils/createGrid';
-import getGridDeepCopy from '../utils/getGridDeepCopy';
+import { revealBlanks, createGrid, getGridDeepCopy } from '../utils';
 
 export const CREATE_BOARD = 'CREATE_BOARD';
 export const SET_FLAG = 'SET_FLAG';

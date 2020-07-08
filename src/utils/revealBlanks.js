@@ -1,7 +1,7 @@
-import checkNeighbors from './checkNeighbors';
+import { checkNeighbors } from './checkNeighbors';
 import { getPerimeter } from '../constants';
 
-function revealBlanks(grid, i, j, width, height) {
+export function revealBlanks(grid, i, j, width, height) {
   if (grid[i][j].value !== '') {
     return;
   }
@@ -23,5 +23,3 @@ function revealBlanks(grid, i, j, width, height) {
       }
     });
 }
-
-export default revealBlanks;
