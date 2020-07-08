@@ -1,6 +1,6 @@
-export const CHECK_BOMB = 'CHECK_BOMB'
-export const CHECK_WIN = 'CHECK_WIN'
-export const RESET_STATUS = 'RESET_STATUS'
+export const CHECK_BOMB = 'CHECK_BOMB';
+export const CHECK_WIN = 'CHECK_WIN';
+export const RESET_STATUS = 'RESET_STATUS';
 
 export function makeMove(game, board, i, j) {
   if (board[i][j].value === 'B') {
@@ -10,12 +10,12 @@ export function makeMove(game, board, i, j) {
         ...game,
         status: 'dead fool',
       },
-    }
+    };
   }
   return {
     type: CHECK_BOMB,
     payload: game,
-  }
+  };
 }
 
 export function checkWin(game, board) {
@@ -28,7 +28,7 @@ export function checkWin(game, board) {
         return {
           type: CHECK_WIN,
           payload: game,
-        }
+        };
       }
     }
   }
@@ -38,7 +38,7 @@ export function checkWin(game, board) {
       ...game,
       status: 'won',
     },
-  }
+  };
 }
 
 export function resetStatus(width, height, bombs) {
@@ -50,5 +50,5 @@ export function resetStatus(width, height, bombs) {
       height,
       bombs,
     },
-  }
+  };
 }

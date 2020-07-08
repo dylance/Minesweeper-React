@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Timer extends Component {
   render() {
@@ -11,8 +11,8 @@ class Timer extends Component {
         {this.props.zeroPlace}
         {this.props.seconds}
       </h1>
-    )
+    );
   }
 }
 
-export default Timer
+export default Timer;

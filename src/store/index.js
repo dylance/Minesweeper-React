@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import rootReducer from '../reducers'
+import { createStore, applyMiddleware, compose } from 'redux';
+import rootReducer from '../reducers';
 
-const initialState = {}
+const initialState = {};
 
 const middleware = [require('redux-immutable-state-invariant').default()];
 
@@ -13,6 +13,6 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__
       && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
-)
+);
 
-export default store
+export default store;

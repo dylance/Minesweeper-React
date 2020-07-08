@@ -14,10 +14,10 @@ const App = (props) => {
   });
 
   return (
-    <div className="game-wrapper">
+    <div className='game-wrapper'>
       <SelectSize />
       <h1>{game.status}</h1>
-      <Board grid={board} height={game.height} width={game.width} />
+      <Board grid={ board } height={ game.height } width={ game.width } />
     </div>
   );
 };

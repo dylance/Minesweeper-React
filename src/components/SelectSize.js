@@ -25,36 +25,36 @@ const SelectSize = (props) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={ handleSubmit }>
         <label>
           Width:
           <input
-            type="text"
-            placeholder=""
-            name="width"
-            value={boardConfig.width}
-            onChange={onChange}
+            type='text'
+            placeholder=''
+            name='width'
+            value={ boardConfig.width }
+            onChange={ onChange }
           />
         </label>
         <label>
           Height:
           <input
-            type="text"
-            name="height"
-            value={boardConfig.height}
-            onChange={onChange}
+            type='text'
+            name='height'
+            value={ boardConfig.height }
+            onChange={ onChange }
           />
         </label>
         <label>
           Bombs:
           <input
-            type="text"
-            name="bombs"
-            value={boardConfig.bombs}
-            onChange={onChange}
+            type='text'
+            name='bombs'
+            value={ boardConfig.bombs }
+            onChange={ onChange }
           />
         </label>
-        <input type="submit" value="Submit" />
+        <input type='submit' value='Submit' />
       </form>
     </div>
   );
@@ -68,5 +68,5 @@ function mapStateToProps({ board, game }) {
 }
 
 export default connect(mapStateToProps, { createBoard, resetStatus })(
-  SelectSize,
+  SelectSize
 );

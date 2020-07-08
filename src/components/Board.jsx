@@ -7,7 +7,7 @@ const Board = (props) => {
 
   const renderSquare = (value, i, j) => {
     return (
-      <Square value={value} i={i} j={j} key={i.toString() + j.toString()} />
+      <Square value={ value } i={ i } j={ j } key={ i.toString() + j.toString() } />
     );
   };
 
@@ -20,9 +20,9 @@ const Board = (props) => {
         count++;
       }
       board.push(
-        <div className="board-row" key={count}>
+        <div className='board-row' key={ count }>
           {squares}
-        </div>,
+        </div>
       );
     }
     return board;
