@@ -1,16 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-
+import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 import rootReducer from '../reducers'
 
 const initialState = {}
 
-// const middleware = [thunk];
+const middleware = [require('redux-immutable-state-invariant').default()];
 
 const store = createStore(
   rootReducer,
   initialState,
   compose(
-    // applyMiddleware(...middleware),
+    applyMiddleware(...middleware),
     window.__REDUX_DEVTOOLS_EXTENSION__
       && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
