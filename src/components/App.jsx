@@ -5,7 +5,8 @@ import Board from './Board'
 import PlayAgain from './PlayAgain'
 import SelectSize from './SelectSize'
 import Timer from './Timer'
-import { checkWin } from '../actions/game'
+import { checkWin, resetStatus } from '../actions/game'
+import { createBoard } from '../actions/board'
 
 class App extends Component {
   state = {
@@ -13,6 +14,7 @@ class App extends Component {
     seconds: 0,
     zeroPlace: 0,
     timerOn: null,
+    board: []
   };
 
   componentDidUpdate() {
@@ -21,11 +23,34 @@ class App extends Component {
     // }
     const { game, board } = this.props
     if (game.status !== 'won') {
-      this.props.dispatch(checkWin(game, board))
+      this.props.checkWin(game, board)
     }
   }
 
+  async componentDidMount() {
+    console.log("Did i mount")
+    await this.props.createBoard(3,3,3)
+    await this.props.resetStatus(3, 3, 3)
+    var newArray = [];
+
+  for (var i = 0; i < this.props.board.length ; i++) {
+      newArray[i] = this.props.board[i].map(item => ({...item}))
+  }
+    await this.setState({
+      board: newArray
+    })
+  }
+
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("Was I checked!!!")
+  //   let value = this.props.game == nextProps.board;
+  //   console.log("The value is: ", value)
+  //   return value
+  // }
+
   render() {
+    console.log("app has been rendered")
     return (
       <div className='game-wrapper'>
         <SelectSize />
@@ -37,22 +62,22 @@ class App extends Component {
           // />
           // <PlayAgain aliveOrNot={this.state.status} />
         }
-        <h1>{this.props.game.status}</h1>
+
         <Board
-          grid={ this.props.board }
-          height={ this.props.game.height }
-          width={ this.props.game.width }
+          grid={ this.state.board }
+          height={ 3 }
+          width={ 3 }
         />
       </div>
     )
   }
 }
 
-function mapStateToProps({ board, game }) {
+function mapStateToProps(state) {
   return {
-    board,
-    game,
+    board: state.board,
+    game: state.game
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, { createBoard, checkWin, resetStatus })(App)
