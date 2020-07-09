@@ -6,8 +6,10 @@ const initialState = {};
 
 const middleware = [require('redux-immutable-state-invariant').default()];
 
-const store = createStore(rootReducer, initialState, composeWithDevTools(
-  applyMiddleware(...middleware),
-));
+const store = createStore(
+  rootReducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 export default store;
