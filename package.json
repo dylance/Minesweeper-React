@@ -42,6 +42,7 @@
     "eslint-plugin-react-hooks": "^2.1.2",
     "prettier": "2.0.5",
     "react-scripts": "3.4.1",
+    "redux-devtools-extension": "^2.13.8",
     "redux-immutable-state-invariant": "^2.1.0"
   }
 }
