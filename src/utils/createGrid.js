@@ -2,14 +2,16 @@ import { checkDuplicate } from './checkDuplicate';
 import { getPerimeter } from '../constants';
 
 export const createGrid = (width, height, bombs) => {
-  let grid = [];
+  let grid = new Array(parseInt(height, 10)).fill(null);
   const mines = [];
-  const row = Array(width).fill(null);
+  const row = new Array(parseInt(width, 10)).fill({
+    value: '',
+    display: 'hidden',
+  });
 
-  // fill board
-  for (let i = 0; i < height; i++) {
-    grid.push(row.slice());
-  }
+  grid = grid.map(() => {
+    return row.map((cell) => ({ ...cell }));
+  });
 
   // create array of mine locations
   for (let i = 0; i < bombs; i++) {
@@ -19,14 +21,14 @@ export const createGrid = (width, height, bombs) => {
 
   // Add mine position to the board
   mines.forEach((mine) => {
-    grid[mine[0]][mine[1]] = 'B';
+    grid[mine[0]][mine[1]].value = 'B';
   });
 
   // Generate numbers around mines
-  for (let i = 0; i < height; i++) {
-    for (let j = 0; j < width; j++) {
-      if (grid[i][j] === 'B') {
-        continue;
+  grid.forEach((row, i) => {
+    row.forEach((cell, j) => {
+      if (cell.value === 'B') {
+        return;
       }
       let minesNearby = 0;
 
@@ -37,18 +39,12 @@ export const createGrid = (width, height, bombs) => {
       });
 
       perimeter.forEach((cell) => {
-        if (cell === 'B') {
+        if (cell.value === 'B') {
           minesNearby += 1;
         }
       });
 
-      grid[i][j] = minesNearby ? minesNearby.toString() : '';
-    }
-  }
-
-  grid = grid.map((row) => {
-    return row.map((square) => {
-      return { value: square, display: 'hidden' };
+      cell.value = minesNearby ? minesNearby.toString() : '';
     });
   });
 
