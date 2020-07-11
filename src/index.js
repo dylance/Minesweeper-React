@@ -7,7 +7,7 @@ import App from './components/App';
 import reducer from './reducers';
 import './styles/index.scss';
 
-console.log('the reducer is: ', reducer);
+//console.log('the reducer is: ', reducer);
 
 // const store = createStore(reducer)
 

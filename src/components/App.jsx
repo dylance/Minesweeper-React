@@ -6,25 +6,25 @@ import SelectSize from './SelectSize';
 import { checkWin } from '../actions/game';
 
 const App = (props) => {
-  const { game, board, dispatch } = props;
+  const { game, dispatch } = props;
   useEffect(() => {
+    console.log("Was the effect called in App")
     if (game.status !== 'won') {
-      dispatch(checkWin(game, board));
+      //dispatch(checkWin(game, board));
     }
-  });
-
+  },[game.status]);
+  console.log("Was the app rendered")
   return (
     <div className='game-wrapper'>
       <SelectSize />
       <h1>{game.status}</h1>
-      <Board grid={ board } height={ game.height } width={ game.width } />
+      <Board />
     </div>
   );
 };
 
-function mapStateToProps({ board, game }) {
+function mapStateToProps({ game }) {
   return {
-    board,
     game,
   };
 }
