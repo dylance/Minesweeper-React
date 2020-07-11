@@ -1,54 +1,48 @@
-export const CHECK_BOMB = 'CHECK_BOMB';
+import { createGrid } from '../utils';
+
 export const CHECK_WIN = 'CHECK_WIN';
-export const RESET_STATUS = 'RESET_STATUS';
+export const CREATE_BOARD = 'CREATE_BOARD';
+export const SET_FLAG = 'SET_FLAG';
+export const ON_CLICK = 'ON_CLICK';
 
-export function makeMove(game, value) {
-  if (value === 'B') {
-    return {
-      type: CHECK_BOMB,
-      payload: {
-        ...game,
-        status: 'dead fool',
-      },
-    };
-  }
+export function checkWin() {
   return {
-    type: CHECK_BOMB,
-    payload: game,
-  };
+    type: CHECK_WIN
+  }
 }
 
-export function checkWin(game, board) {
-  // if (board.length === 0) {
-  //   return;
-  // }
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length; j++) {
-      if (board[i][j].value !== 'B' && board[i][j].display === 'hidden') {
-        return {
-          type: CHECK_WIN,
-          payload: game,
-        };
-      }
-    }
-  }
-  return {
-    type: CHECK_WIN,
-    payload: {
-      ...game,
-      status: 'won',
-    },
-  };
-}
+export function createBoard(height, width, bombs) {
+  const board = createGrid(height, width, bombs);
 
-export function resetStatus(width, height, bombs) {
   return {
-    type: RESET_STATUS,
-    payload: {
+    type: CREATE_BOARD,
+    data: {
       status: 'alive',
       width,
       height,
       bombs,
+      board,
+    },
+  };
+}
+
+export function setFlag(i, j) {
+  return {
+    type: SET_FLAG,
+    data: {
+      i,
+      j,
+    },
+  };
+}
+
+export function onClick(i, j, value) {
+  return {
+    type: ON_CLICK,
+    data: {
+      i,
+      j,
+      value
     },
   };
 }

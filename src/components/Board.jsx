@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import Square from './Square';
 
 const Board = (props) => {
-  const { game } = props;
-  const { width, height } = game;
+  const { width, height } = props;
   console.log('Is the board rendering');
 
   const createBoard = () => {
@@ -32,7 +31,8 @@ const Board = (props) => {
 
 function mapStateToProps({ game }) {
   return {
-    game,
+    width: game.width,
+    height: game.height
   };
 }
 

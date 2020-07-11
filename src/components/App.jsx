@@ -3,22 +3,15 @@ import { connect } from 'react-redux';
 
 import Board from './Board';
 import SelectSize from './SelectSize';
-import { checkWin } from '../actions/game';
 
 const App = (props) => {
-  const { game, dispatch } = props;
-  useEffect(() => {
-    console.log('Was the effect called in App');
-    if (game.status !== 'won') {
-      // @TODO get the check win working
-      // dispatch(checkWin(game, board));
-    }
-  }, [game.status]);
+  const { status } = props;
+
   console.log('Was the app rendered');
   return (
     <div className='game-wrapper'>
       <SelectSize />
-      <h1>{game.status}</h1>
+      <h1>{status}</h1>
       <Board />
     </div>
   );
@@ -26,7 +19,7 @@ const App = (props) => {
 
 function mapStateToProps({ game }) {
   return {
-    game,
+    status: game.status,
   };
 }
 

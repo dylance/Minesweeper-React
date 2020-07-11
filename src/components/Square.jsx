@@ -1,22 +1,19 @@
 import React, { useEffect } from 'react';
 import { FaBomb, FaFlagCheckered } from 'react-icons/fa';
 import { connect } from 'react-redux';
-import { setFlag, onClick } from '../actions/board';
-import { makeMove } from '../actions/game';
+import { setFlag, onClick, checkWin } from '../actions/game';
 
 const Square = (props) => {
-  const {
-    game, i, j, display, value,
-  } = props;
+  const { i, j, status, display, value } = props;
 
   useEffect(() => {
     console.log('was the use effect in the square called');
   }, [display]);
   console.log('was the square rendered');
 
-  if (game.status === 'dead fool' && value === 'B') {
+  if (status === 'dead fool' && value === 'B') {
     return (
-      <button className='square' style={{ background: 'red' }}>
+      <button className="square" style={{ background: 'red' }}>
         <FaBomb />
       </button>
     );
@@ -26,10 +23,10 @@ const Square = (props) => {
     return (
       <button
         onClick={() => {
-          props.makeMove(game, value);
-          props.onClick(i, j, game.width, game.height);
+          props.onClick(i, j, value);
+          props.checkWin()
         }}
-        className='square'
+        className="square"
         style={{ background: '#666' }}
         onContextMenu={() => {
           props.setFlag(i, j);
@@ -41,7 +38,7 @@ const Square = (props) => {
   if (display === 'flag') {
     return (
       <button
-        className='square'
+        className="square"
         // right click
         onContextMenu={() => {
           props.setFlag(i, j);
@@ -52,27 +49,35 @@ const Square = (props) => {
     );
   }
 
-  return <button className='square'>{value}</button>;
+  return <button className="square">{value}</button>;
 };
 
-function mapStateToProps({ board, game }, props) {
+function mapStateToProps({ game }, props) {
   const { i, j } = props;
   return {
-    value: board[i][j].value,
-    display: board[i][j].display,
-    game,
+    value: game.board[i][j].value,
+    display: game.board[i][j].display,
+    status: game.status,
   };
 }
 
 function shouldRender(prevProps, nextProps) {
   // renders if false is returned
-  const renderBomb = nextProps.game.status === 'dead fool' && nextProps.value === 'B';
+  const newGame =
+    prevProps.status === 'dead fool' && nextProps.status === 'alive';
+  console.log("NEw game is: ", newGame)
+  const renderBomb =
+    nextProps.status === 'dead fool' && nextProps.value === 'B';
   if (renderBomb) return false;
   const renderSquare = prevProps.display !== nextProps.display;
   if (renderSquare) return false;
+
+  if (newGame) return false;
   return true;
 }
 
-export default connect(mapStateToProps, { makeMove, onClick, setFlag })(
-  React.memo(Square, shouldRender)
+export default connect(mapStateToProps, { onClick, setFlag, checkWin })(
+  React.memo(Square),
 );
+
+// @TODO fix shouldRender to work when making new board, (find way to test for breaking changes)
