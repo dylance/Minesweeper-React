@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaBomb, FaFlagCheckered } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { setFlag, onClick } from '../actions/board';
@@ -6,56 +6,60 @@ import { makeMove } from '../actions/game';
 
 const Square = (props) => {
   const {
-    game, board, i, j, value,
+    game, i, j, display, value,
   } = props;
 
-  if (game.status === 'dead fool' && board[i][j].value === 'B') {
+  useEffect(() => {
+    console.log('was the use effect in the square called');
+  }, [display]);
+  console.log('was the square rendered');
+
+  if (game.status === 'dead fool' && value === 'B') {
     return (
-      <button className='square' style={ { background: 'red' } }>
+      <button className='square' style={{ background: 'red' }}>
         <FaBomb />
       </button>
     );
   }
 
-  if (value.display === 'hidden') {
+  if (display === 'hidden') {
     return (
       <button
-        onClick={ (e) => {
-          e.preventDefault();
-          props.makeMove(game, board, i, j);
-          props.onClick(board, i, j, game.width, game.height);
-        } }
+        onClick={() => {
+          props.makeMove(game, value);
+          props.onClick(i, j, game.width, game.height);
+        }}
         className='square'
-        style={ { background: '#666' } }
-        // right click
-        onContextMenu={ (e) => {
-          e.preventDefault();
-          props.setFlag(board, i, j);
-        } }
+        style={{ background: '#666' }}
+        onContextMenu={() => {
+          props.setFlag(i, j);
+        }}
       />
     );
   }
 
-  if (value.display === 'flag') {
+  if (display === 'flag') {
     return (
       <button
         className='square'
-        onContextMenu={ (e) => {
-          e.preventDefault();
-          props.setFlag(board, props.i, props.j);
-        } }
+        // right click
+        onContextMenu={() => {
+          props.setFlag(i, j);
+        }}
       >
         <FaFlagCheckered />
       </button>
     );
   }
 
-  return <button className='square'>{value.value}</button>;
+  return <button className='square'>{value}</button>;
 };
 
-function mapStateToProps({ board, game }) {
+function mapStateToProps({ board, game }, props) {
+  const { i, j } = props;
   return {
-    board,
+    value: board[i][j].value,
+    display: board[i][j].display,
     game,
   };
 }

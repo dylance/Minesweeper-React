@@ -25,15 +25,15 @@ const SelectSize = (props) => {
 
   return (
     <div>
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={handleSubmit}>
         <label>
           Width:
           <input
             type='text'
             placeholder=''
             name='width'
-            value={ boardConfig.width }
-            onChange={ onChange }
+            value={boardConfig.width}
+            onChange={onChange}
           />
         </label>
         <label>
@@ -41,8 +41,8 @@ const SelectSize = (props) => {
           <input
             type='text'
             name='height'
-            value={ boardConfig.height }
-            onChange={ onChange }
+            value={boardConfig.height}
+            onChange={onChange}
           />
         </label>
         <label>
@@ -50,8 +50,8 @@ const SelectSize = (props) => {
           <input
             type='text'
             name='bombs'
-            value={ boardConfig.bombs }
-            onChange={ onChange }
+            value={boardConfig.bombs}
+            onChange={onChange}
           />
         </label>
         <input type='submit' value='Submit' />

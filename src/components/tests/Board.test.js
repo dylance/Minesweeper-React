@@ -10,8 +10,8 @@ import Board from '../Board';
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-    <Provider store={ store }>
-      <Board grid={ [] } height={ 7 } width={ 7 } />
+    <Provider store={store}>
+      <Board grid={[]} height={7} width={7} />
     </Provider>,
     div
   );
@@ -22,9 +22,9 @@ let wrapped;
 
 beforeEach(() => {
   wrapped = mount(
-    <Provider store={ store }>
+    <Provider store={store}>
       <Board
-        grid={ [
+        grid={[
           [
             { value: '1', display: 'hidden' },
             { value: '1', display: 'hidden' },
@@ -88,9 +88,9 @@ beforeEach(() => {
             { value: '1', display: 'hidden' },
             { value: '', display: 'hidden' },
           ],
-        ] }
-        height={ 7 }
-        width={ 7 }
+        ]}
+        height={7}
+        width={7}
       />
     </Provider>
   );

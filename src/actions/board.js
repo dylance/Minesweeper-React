@@ -1,4 +1,4 @@
-import { revealBlanks, createGrid, getGridDeepCopy } from '../utils';
+import { createGrid } from '../utils';
 
 export const CREATE_BOARD = 'CREATE_BOARD';
 export const SET_FLAG = 'SET_FLAG';
@@ -13,26 +13,24 @@ export function createBoard(height, width, bombs) {
   };
 }
 
-export function setFlag(board, i, j) {
-  const grid = getGridDeepCopy(board);
-
-  grid[i][j].display = grid[i][j].display === 'hidden' ? 'flag' : 'hidden';
-
+export function setFlag(i, j) {
   return {
     type: SET_FLAG,
-    board: grid,
+    data: {
+      i,
+      j,
+    },
   };
 }
 
-export function onClick(board, i, j, height, width) {
-  const grid = getGridDeepCopy(board);
-
-  revealBlanks(grid, i, j, height, width);
-
-  grid[i][j].display = 'visible';
-
+export function onClick(i, j, height, width) {
   return {
     type: ON_CLICK,
-    board: grid,
+    data: {
+      i,
+      j,
+      height,
+      width,
+    },
   };
 }

@@ -10,7 +10,7 @@ class PlayAgain extends Component {
     if (this.props.aliveOrNot !== 'alive') {
       return (
         <div>
-          <button onClick={ this.refreshPage }>Play again?</button>
+          <button onClick={this.refreshPage}>Play again?</button>
         </div>
       );
     }

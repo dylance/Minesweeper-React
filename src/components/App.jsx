@@ -8,12 +8,13 @@ import { checkWin } from '../actions/game';
 const App = (props) => {
   const { game, dispatch } = props;
   useEffect(() => {
-    console.log("Was the effect called in App")
+    console.log('Was the effect called in App');
     if (game.status !== 'won') {
-      //dispatch(checkWin(game, board));
+      // @TODO get the check win working
+      // dispatch(checkWin(game, board));
     }
-  },[game.status]);
-  console.log("Was the app rendered")
+  }, [game.status]);
+  console.log('Was the app rendered');
   return (
     <div className='game-wrapper'>
       <SelectSize />
