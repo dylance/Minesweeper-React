@@ -5,3 +5,4 @@ export * from './generateMine';
 export * from './getGridDeepCopy';
 export * from './randomNum';
 export * from './revealBlanks';
+export * from './checkWin';

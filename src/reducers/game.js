@@ -1,5 +1,5 @@
-import { CREATE_BOARD, SET_FLAG, ON_CLICK, CHECK_WIN } from '../actions/game';
-import { revealBlanks, createGrid, getGridDeepCopy } from '../utils';
+import { CREATE_BOARD, SET_FLAG, ON_CLICK } from '../actions/game';
+import { revealBlanks, createGrid, getGridDeepCopy, checkWin } from '../utils';
 
 export default function game(
   state = {
@@ -36,6 +36,8 @@ export default function game(
 
       if (value === 'B') {
         newStatus = 'dead fool';
+      } else {
+        newStatus = checkWin(grid) ? 'won' : newStatus
       }
 
       return {
@@ -44,29 +46,6 @@ export default function game(
         status: newStatus,
       };
     }
-    case CHECK_WIN:
-      if (state.board.length === 0) {
-        return {
-          ...state,
-        };
-      }
-      for (let i = 0; i < state.board.length; i++) {
-        for (let j = 0; j < state.board[i].length; j++) {
-          if (
-            state.board[i][j].value !== 'B' &&
-            state.board[i][j].display === 'hidden'
-          ) {
-            return {
-              ...state,
-            };
-          }
-        }
-      }
-      return {
-        ...state,
-        status: 'won',
-      };
-      return action.payload;
     default:
       return state;
   }

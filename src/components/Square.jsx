@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FaBomb, FaFlagCheckered } from 'react-icons/fa';
 import { connect } from 'react-redux';
-import { setFlag, onClick, checkWin } from '../actions/game';
+import { setFlag, onClick } from '../actions/game';
 
 const Square = (props) => {
   const { i, j, status, display, value } = props;
@@ -24,7 +24,6 @@ const Square = (props) => {
       <button
         onClick={() => {
           props.onClick(i, j, value);
-          props.checkWin()
         }}
         className="square"
         style={{ background: '#666' }}
@@ -76,7 +75,7 @@ function shouldRender(prevProps, nextProps) {
   return true;
 }
 
-export default connect(mapStateToProps, { onClick, setFlag, checkWin })(
+export default connect(mapStateToProps, { onClick, setFlag })(
   React.memo(Square),
 );
 

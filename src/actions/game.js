@@ -1,15 +1,8 @@
 import { createGrid } from '../utils';
 
-export const CHECK_WIN = 'CHECK_WIN';
 export const CREATE_BOARD = 'CREATE_BOARD';
 export const SET_FLAG = 'SET_FLAG';
 export const ON_CLICK = 'ON_CLICK';
-
-export function checkWin() {
-  return {
-    type: CHECK_WIN
-  }
-}
 
 export function createBoard(height, width, bombs) {
   const board = createGrid(height, width, bombs);
