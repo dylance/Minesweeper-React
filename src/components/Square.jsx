@@ -64,4 +64,15 @@ function mapStateToProps({ board, game }, props) {
   };
 }
 
-export default connect(mapStateToProps, { makeMove, onClick, setFlag })(Square);
+function shouldRender(prevProps, nextProps) {
+  // renders if false is returned
+  const renderBomb = nextProps.game.status === 'dead fool' && nextProps.value === 'B';
+  if (renderBomb) return false;
+  const renderSquare = prevProps.display !== nextProps.display;
+  if (renderSquare) return false;
+  return true;
+}
+
+export default connect(mapStateToProps, { makeMove, onClick, setFlag })(
+  React.memo(Square, shouldRender)
+);
