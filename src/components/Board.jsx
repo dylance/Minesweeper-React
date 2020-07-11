@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Square from './Square';
 
 const Board = (props) => {
-  const { width, height } = props;
+  const { width, height, status } = props;
   console.log('Is the board rendering');
 
   const createBoard = () => {
@@ -15,9 +15,9 @@ const Board = (props) => {
         rows.push(<Square i={i} j={j} key={i.toString() + j.toString()} />);
       }
       board2.push(
-        <div className='board-row' key={i}>
+        <div className="board-row" key={i}>
           {rows}
-        </div>
+        </div>,
       );
     }
     return board2;
@@ -26,13 +26,19 @@ const Board = (props) => {
   if (width === 0) {
     return <div>Select dimensions to start</div>;
   }
-  return <div>{createBoard()}</div>;
+  return (
+    <div>
+      <h1>{status}</h1>
+      {createBoard()}
+    </div>
+  );
 };
 
 function mapStateToProps({ game }) {
   return {
     width: game.width,
-    height: game.height
+    height: game.height,
+    status: game.status,
   };
 }
 
