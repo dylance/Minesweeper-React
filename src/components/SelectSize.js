@@ -23,34 +23,20 @@ const SelectSize = (props) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>
-          Width:
-          <input
-            type="text"
-            placeholder=""
-            name="width"
-            value={boardConfig.width}
-            onChange={onChange}
-          />
-        </label>
-        <label>
-          Height:
-          <input
-            type="text"
-            name="height"
-            value={boardConfig.height}
-            onChange={onChange}
-          />
-        </label>
-        <label>
-          Bombs:
-          <input
-            type="text"
-            name="bombs"
-            value={boardConfig.bombs}
-            onChange={onChange}
-          />
-        </label>
+        {Object.entries(boardConfig).map((item) => {
+          return (
+            <label key={item[0]}>
+              {`${item[0]}: `}
+              <input
+                type="text"
+                placeholder=""
+                name={item[0]}
+                value={item[1]}
+                onChange={onChange}
+              />
+            </label>
+          );
+        })}
         <input type="submit" value="Submit" />
       </form>
     </div>
