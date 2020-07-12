@@ -13,7 +13,7 @@ const SelectSize = (props) => {
   const handleSubmit = (event) => {
     const { width, height, bombs } = boardConfig;
     event.preventDefault();
-    props.createBoard(height, width, bombs);
+    props.createBoard(width, height, bombs);
   };
 
   const onChange = (e) => {
