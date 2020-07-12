@@ -1,32 +1,15 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
 import Board from './Board';
 import SelectSize from './SelectSize';
-import { checkWin } from '../actions/game';
 
-const App = (props) => {
-  const { game, board, dispatch } = props;
-  useEffect(() => {
-    if (game.status !== 'won') {
-      dispatch(checkWin(game, board));
-    }
-  });
-
+const App = () => {
   return (
     <div className='game-wrapper'>
       <SelectSize />
-      <h1>{game.status}</h1>
-      <Board grid={ board } height={ game.height } width={ game.width } />
+      <Board />
     </div>
   );
 };
 
-function mapStateToProps({ board, game }) {
-  return {
-    board,
-    game,
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

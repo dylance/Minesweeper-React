@@ -1,63 +1,82 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaBomb, FaFlagCheckered } from 'react-icons/fa';
 import { connect } from 'react-redux';
-import { setFlag, onClick } from '../actions/board';
-import { makeMove } from '../actions/game';
+import { setFlag, onClick } from '../actions/game';
 
 const Square = (props) => {
-  const {
-    game, board, i, j, value,
-  } = props;
+  const { i, j, status, display, value } = props;
 
-  if (game.status === 'dead fool' && board[i][j].value === 'B') {
+  useEffect(() => {
+    console.log('was the use effect in the square called');
+  }, [display]);
+  console.log('was the square rendered');
+
+  if (status === 'dead fool' && value === 'B') {
     return (
-      <button className='square' style={ { background: 'red' } }>
+      <button className="square" style={{ background: 'red' }}>
         <FaBomb />
       </button>
     );
   }
 
-  if (value.display === 'hidden') {
+  if (display === 'hidden') {
     return (
       <button
-        onClick={ (e) => {
-          e.preventDefault();
-          props.makeMove(game, board, i, j);
-          props.onClick(board, i, j, game.width, game.height);
-        } }
-        className='square'
-        style={ { background: '#666' } }
-        // right click
-        onContextMenu={ (e) => {
-          e.preventDefault();
-          props.setFlag(board, i, j);
-        } }
+        onClick={() => {
+          props.onClick(i, j, value);
+        }}
+        className="square"
+        style={{ background: '#666' }}
+        onContextMenu={() => {
+          props.setFlag(i, j);
+        }}
       />
     );
   }
 
-  if (value.display === 'flag') {
+  if (display === 'flag') {
     return (
       <button
-        className='square'
-        onContextMenu={ (e) => {
-          e.preventDefault();
-          props.setFlag(board, props.i, props.j);
-        } }
+        className="square"
+        // right click
+        onContextMenu={() => {
+          props.setFlag(i, j);
+        }}
       >
         <FaFlagCheckered />
       </button>
     );
   }
 
-  return <button className='square'>{value.value}</button>;
+  return <button className="square">{value}</button>;
 };
 
-function mapStateToProps({ board, game }) {
+function mapStateToProps({ game }, props) {
+  const { i, j } = props;
   return {
-    board,
-    game,
+    value: game.board[i][j].value,
+    display: game.board[i][j].display,
+    status: game.status,
   };
 }
 
-export default connect(mapStateToProps, { makeMove, onClick, setFlag })(Square);
+function shouldRender(prevProps, nextProps) {
+  // renders if false is returned
+  const newGame =
+    prevProps.status === 'dead fool' && nextProps.status === 'alive';
+  console.log("NEw game is: ", newGame)
+  const renderBomb =
+    nextProps.status === 'dead fool' && nextProps.value === 'B';
+  if (renderBomb) return false;
+  const renderSquare = prevProps.display !== nextProps.display;
+  if (renderSquare) return false;
+
+  if (newGame) return false;
+  return true;
+}
+
+export default connect(mapStateToProps, { onClick, setFlag })(
+  React.memo(Square),
+);
+
+// @TODO fix shouldRender to work when making new board, (find way to test for breaking changes)

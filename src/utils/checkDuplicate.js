@@ -1,8 +1,8 @@
 import { generateMine } from './generateMine';
 
-// Do not place a mine in a position where a mine already exists
-// Returns new mine location or function is called until a mine
-// is placed where there is not a mine
+// Do not place a mine in a position where a mine already exists.
+// Returns new mine location or recursive call is made until a mine
+// is placed where there is not a mine.
 export const checkDuplicate = (mines, height, width) => {
   let duplicate = false;
   const newMine = generateMine(height, width);

@@ -10,7 +10,7 @@ import Board from '../Board';
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-    <Provider store={ store }>
+    <Provider store={store}>
       <App />
     </Provider>,
     div
@@ -22,7 +22,7 @@ let wrapped;
 
 beforeEach(() => {
   wrapped = mount(
-    <Provider store={ store }>
+    <Provider store={store}>
       <App />
     </Provider>
   );

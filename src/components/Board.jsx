@@ -1,37 +1,45 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Square from './Square';
 
 const Board = (props) => {
-  const { grid, width, height } = props;
-
-  const renderSquare = (value, i, j) => {
-    return (
-      <Square value={ value } i={ i } j={ j } key={ i.toString() + j.toString() } />
-    );
-  };
+  const { width, height, status } = props;
+  console.log('Is the board rendering');
 
   const createBoard = () => {
-    const board = [];
-    for (let i = 0, count = 0; i < height; i++) {
-      const squares = [];
+    const board2 = [];
+    for (let i = 0; i < height; i++) {
+      const rows = [];
       for (let j = 0; j < width; j++) {
-        squares.push(renderSquare(grid[i][j], i, j));
-        count++;
+        rows.push(<Square i={i} j={j} key={i.toString() + j.toString()} />);
       }
-      board.push(
-        <div className='board-row' key={ count }>
-          {squares}
-        </div>
+      board2.push(
+        <div className="board-row" key={i}>
+          {rows}
+        </div>,
       );
     }
-    return board;
+    return board2;
   };
 
-  if (grid.length === 0) {
+  if (width === 0) {
     return <div>Select dimensions to start</div>;
   }
-  return <div>{createBoard()}</div>;
+  return (
+    <div>
+      <h1>{status}</h1>
+      {createBoard()}
+    </div>
+  );
 };
 
-export default Board;
+function mapStateToProps({ game }) {
+  return {
+    width: game.width,
+    height: game.height,
+    status: game.status,
+  };
+}
+
+export default connect(mapStateToProps)(Board);

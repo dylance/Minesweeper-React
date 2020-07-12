@@ -42,7 +42,7 @@ rules:
   react/jsx-filename-extension: 0
   react/jsx-boolean-value: 0
   react/prefer-stateless-function: 0
-  react/jsx-curly-spacing: [2, "always"]
+  react/jsx-curly-spacing: [0, "always"]
   react/no-unused-prop-types: 2
   import/extensions: 0
   import/no-extraneous-dependencies: 0
