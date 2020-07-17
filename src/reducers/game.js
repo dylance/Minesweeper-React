@@ -30,7 +30,7 @@ export default function game(
       let newStatus = state.status;
       const grid = getGridDeepCopy(state.board);
 
-      revealBlanks(grid, i, j, height, width);
+      revealBlanks(grid, i, j, width, height);
 
       grid[i][j].display = 'visible';
 
