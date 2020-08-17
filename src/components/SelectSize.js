@@ -26,10 +26,10 @@ const SelectSize = (props) => {
         {Object.entries(boardConfig).map((item) => {
           return (
             <label key={item[0]}>
-              {`${item[0]}: `}
+              {`${ item[0] }: `}
               <input
-                type="text"
-                placeholder=""
+                type='text'
+                placeholder=''
                 name={item[0]}
                 value={item[1]}
                 onChange={onChange}
@@ -37,7 +37,7 @@ const SelectSize = (props) => {
             </label>
           );
         })}
-        <input type="submit" value="Submit" />
+        <input type='submit' value='Submit' />
       </form>
     </div>
   );

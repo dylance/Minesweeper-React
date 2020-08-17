@@ -1,5 +1,7 @@
 import { CREATE_BOARD, SET_FLAG, ON_CLICK } from '../actions/game';
-import { revealBlanks, createGrid, getGridDeepCopy, checkWin } from '../utils';
+import {
+  revealBlanks, createGrid, getGridDeepCopy, checkWin,
+} from '../utils';
 
 export default function game(
   state = {
@@ -9,7 +11,7 @@ export default function game(
     bombs: 0,
     board: [],
   },
-  action,
+  action
 ) {
   switch (action.type) {
     case CREATE_BOARD:
@@ -37,7 +39,7 @@ export default function game(
       if (value === 'B') {
         newStatus = 'dead fool';
       } else {
-        newStatus = checkWin(grid) ? 'won' : newStatus
+        newStatus = checkWin(grid) ? 'won' : newStatus;
       }
 
       return {

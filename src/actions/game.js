@@ -35,7 +35,7 @@ export function onClick(i, j, value) {
     data: {
       i,
       j,
-      value
+      value,
     },
   };
 }

@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { setFlag, onClick } from '../actions/game';
 
 const Square = (props) => {
-  const { i, j, status, display, value } = props;
+  const {
+    i, j, status, display, value,
+  } = props;
 
   useEffect(() => {
     console.log('was the use effect in the square called');
@@ -13,7 +15,7 @@ const Square = (props) => {
 
   if (status === 'dead fool' && value === 'B') {
     return (
-      <button className="square" style={{ background: 'red' }}>
+      <button className='square' style={{ background: 'red' }}>
         <FaBomb />
       </button>
     );
@@ -25,7 +27,7 @@ const Square = (props) => {
         onClick={() => {
           props.onClick(i, j, value);
         }}
-        className="square"
+        className='square'
         style={{ background: '#666' }}
         onContextMenu={() => {
           props.setFlag(i, j);
@@ -37,7 +39,7 @@ const Square = (props) => {
   if (display === 'flag') {
     return (
       <button
-        className="square"
+        className='square'
         // right click
         onContextMenu={() => {
           props.setFlag(i, j);
@@ -48,7 +50,7 @@ const Square = (props) => {
     );
   }
 
-  return <button className="square">{value}</button>;
+  return <button className='square'>{value}</button>;
 };
 
 function mapStateToProps({ game }, props) {
@@ -62,11 +64,9 @@ function mapStateToProps({ game }, props) {
 
 function shouldRender(prevProps, nextProps) {
   // renders if false is returned
-  const newGame =
-    prevProps.status === 'dead fool' && nextProps.status === 'alive';
-  console.log("NEw game is: ", newGame)
-  const renderBomb =
-    nextProps.status === 'dead fool' && nextProps.value === 'B';
+  const newGame = prevProps.status === 'dead fool' && nextProps.status === 'alive';
+  console.log('NEw game is: ', newGame);
+  const renderBomb = nextProps.status === 'dead fool' && nextProps.value === 'B';
   if (renderBomb) return false;
   const renderSquare = prevProps.display !== nextProps.display;
   if (renderSquare) return false;
@@ -76,7 +76,7 @@ function shouldRender(prevProps, nextProps) {
 }
 
 export default connect(mapStateToProps, { onClick, setFlag })(
-  React.memo(Square),
+  React.memo(Square)
 );
 
 // @TODO fix shouldRender to work when making new board, (find way to test for breaking changes)

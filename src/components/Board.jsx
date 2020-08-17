@@ -15,9 +15,9 @@ const Board = (props) => {
         rows.push(<Square i={i} j={j} key={i.toString() + j.toString()} />);
       }
       board2.push(
-        <div className="board-row" key={i}>
+        <div className='board-row' key={i}>
           {rows}
-        </div>,
+        </div>
       );
     }
     return board2;
