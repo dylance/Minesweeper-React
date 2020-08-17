@@ -9,11 +9,27 @@ const SelectSize = (props) => {
     height: '',
     bombs: '',
   });
+  const [error, setErrorMessage] = useState('')
 
   const handleSubmit = (event) => {
-    const { width, height, bombs } = boardConfig;
     event.preventDefault();
+    const { width, height, bombs } = boardConfig;
+
+    if (width > 50) {
+      setErrorMessage('Width cannot be greater than 50')
+      return;
+    }
+    if (height > 30) {
+      setErrorMessage('Height cannot be greater than 30');
+      return;
+    }
+    if (bombs / (height * width) > .35) {
+      setErrorMessage('Bombs cannot be greater than 35% of the available cells');
+      return;
+    }
+
     props.createBoard(width, height, bombs);
+    setErrorMessage('');
   };
 
   const onChange = (e) => {
@@ -39,6 +55,7 @@ const SelectSize = (props) => {
         })}
         <input type='submit' value='Submit' />
       </form>
+      <div className="form-error">{error}</div>
     </div>
   );
 };
