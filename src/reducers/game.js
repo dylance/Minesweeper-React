@@ -1,7 +1,7 @@
 import { CREATE_BOARD, SET_FLAG, ON_CLICK } from '../actions/game';
 import {
   revealBlanks, createGrid, getGridDeepCopy, checkWin,
-} from '../utils';
+} from '../minesweeper';
 
 export default function game(
   state = {

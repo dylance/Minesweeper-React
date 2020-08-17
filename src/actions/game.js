@@ -1,4 +1,4 @@
-import { createGrid } from '../utils';
+import { createGrid } from '../minesweeper';
 
 export const CREATE_BOARD = 'CREATE_BOARD';
 export const SET_FLAG = 'SET_FLAG';
